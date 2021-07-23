@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { NavigationBar } from './components/NavigationBar';
 import { Layout } from './components/Layout';
 import { NoMatch } from './components/NoMatch';
+import { Organize } from './components/Organize';
 
 
 // import { Jumbotron } from './components/Jumbotron';
@@ -15,7 +16,8 @@ function App() {
       <Layout>
         <Router>
           <Switch>
-            <Route component={NoMatch} />
+            <Route path='/organize' component={ Organize } />
+            <Route component={ NoMatch } />
           </Switch>
         </Router>
       </Layout>
