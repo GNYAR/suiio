@@ -7,9 +7,6 @@ export const Organize = () => (
     <Tab eventKey="officer" title="幹部名單" tabClassName="text-white">
       <Officer />
     </Tab>
-    <Tab eventKey="authority" title="權限管理" tabClassName="text-white">
-      <h1>權限管理</h1>
-    </Tab>
     <Tab eventKey="category" title="活動類別" tabClassName="text-white">
       <h1>活動類別</h1>
     </Tab>
