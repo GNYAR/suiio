@@ -6,7 +6,7 @@ export const OfficeModal = {
     return (
       <Modal {...props} size="md" centered>
         <Form>
-          <Modal.Header>
+          <Modal.Header closeButton>
             <Modal.Title><strong>新增幹部</strong></Modal.Title>
           </Modal.Header>
           <Modal.Body>
@@ -16,7 +16,7 @@ export const OfficeModal = {
                 <Form.Control type="text" />
               </Col>
               <Col sm={{ offset: 3 }}>
-                <Form.Text className="text-danger">請勿輸入重複職位</Form.Text>
+                <Form.Text className="text-muted">請勿輸入重複職位</Form.Text>
               </Col>
             </Form.Group>
             <Form.Group as={Row}>
@@ -25,7 +25,7 @@ export const OfficeModal = {
                 <Form.Control type="number" />
               </Col>
               <Col sm={{ offset: 3 }}>
-                <Form.Text className="text-danger">請輸入學號10碼(不加s)</Form.Text>
+                <Form.Text className="text-muted">請輸入學號10碼(不加s)</Form.Text>
               </Col>
             </Form.Group>
           </Modal.Body>
