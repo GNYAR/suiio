@@ -1,6 +1,5 @@
 import React from 'react'
 import { Row, Col, Card, ButtonGroup, Button } from 'react-bootstrap'
-import styled from 'styled-components'
 import { XCircle, PencilSquare, PersonPlusFill } from 'react-bootstrap-icons';
 import { OfficeModal } from './modal';
 
@@ -15,17 +14,13 @@ const officers = {
   資訊長: "1110634007"
 }
 
-const Style = styled.div`
-`;
-
 export const Officer = () => {
   const [AddShow, setAddShow] = React.useState(false);
   const [position, setPosition] = React.useState();
   const [EditShow, setEditShow] = React.useState(false);
   const [DeleteShow, setDeleteShow] = React.useState(false);
-
   return (
-    <Style>
+    <>
       <Row>
         <Col xs={{ span: 4, offset: 8 }} className="py-1">
             <Button
@@ -70,6 +65,6 @@ export const Officer = () => {
       <OfficeModal.ADD show={AddShow} onHide={ () => setAddShow(false)} />
       <OfficeModal.EDIT position={position} show={EditShow} onHide={ () => setEditShow(false)} />
       <OfficeModal.DELETE position={position} show={DeleteShow} onHide={ () => setDeleteShow(false)} />
-    </Style>
+    </>
   )
 }
