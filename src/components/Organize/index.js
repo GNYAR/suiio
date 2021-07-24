@@ -1,7 +1,7 @@
 import React from 'react';
 import { Tabs, Tab } from 'react-bootstrap';
 import styled from 'styled-components';
-import { Officer } from './officer';
+import { Officer } from './officer/index';
 
 const Style = styled.div`
     // .menu {
