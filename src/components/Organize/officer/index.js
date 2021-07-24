@@ -23,13 +23,13 @@ export const Officer = () => {
     <>
       <Row>
         <Col xs={{ span: 4, offset: 8 }} className="py-1">
-            <Button
-              variant="info"
-              className="float-right"
-              onClick={ () => setAddShow(true) }
-            >
-              <PersonPlusFill size="20" className="mr-2" />新增
-            </Button>
+          <Button
+            variant="info"
+            className="float-right"
+            onClick={() => setAddShow(true)}
+          >
+            <PersonPlusFill size="20" className="mr-2" />新增
+          </Button>
         </Col>
         {Object.keys(officers).map(x => (
           <Col className="py-1" sm="6" lg="4">
@@ -38,7 +38,7 @@ export const Officer = () => {
                 <Button
                   variant="dark"
                   className="px-2 pt-0 pb-1"
-                  onClick={ () => {
+                  onClick={() => {
                     setPosition(x);
                     setEditShow(true);
                   }}
@@ -48,7 +48,7 @@ export const Officer = () => {
                 <Button
                   variant="dark"
                   className="px-2 pt-0 pb-1"
-                  onClick={ () => {
+                  onClick={() => {
                     setPosition(x);
                     setDeleteShow(true);
                   }}
@@ -62,9 +62,9 @@ export const Officer = () => {
           </Col>
         ))}
       </Row>
-      <OfficeModal.ADD show={AddShow} onHide={ () => setAddShow(false)} />
-      <OfficeModal.EDIT position={position} show={EditShow} onHide={ () => setEditShow(false)} />
-      <OfficeModal.DELETE position={position} show={DeleteShow} onHide={ () => setDeleteShow(false)} />
+      <OfficeModal.ADD show={AddShow} onHide={() => setAddShow(false)} />
+      <OfficeModal.EDIT position={position} show={EditShow} onHide={() => setEditShow(false)} />
+      <OfficeModal.DELETE position={position} show={DeleteShow} onHide={() => setDeleteShow(false)} />
     </>
   )
 }

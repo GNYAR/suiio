@@ -16,8 +16,8 @@ function App() {
       <Layout>
         <Router>
           <Switch>
-            <Route path='/organize' component={ Organize } />
-            <Route component={ NoMatch } />
+            <Route path='/organize' component={Organize} />
+            <Route component={NoMatch} />
           </Switch>
         </Router>
       </Layout>
