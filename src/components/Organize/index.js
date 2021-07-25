@@ -1,6 +1,6 @@
 import React from 'react';
 import { Tabs, Tab } from 'react-bootstrap';
-import { Officer } from './officer';
+import { Officer } from './Officer';
 
 export const Organize = () => (
   <Tabs fill variant="pills" defaultActiveKey="officer" className="my-3 rounded menu bg-secondary" >
