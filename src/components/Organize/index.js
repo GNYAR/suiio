@@ -1,6 +1,7 @@
 import React from 'react'
 import { Tabs, Tab } from 'react-bootstrap'
 import { Officer } from './Officer'
+import { Category } from './Category'
 
 export const Organize = () => (
     <Tabs
@@ -13,7 +14,7 @@ export const Organize = () => (
             <Officer />
         </Tab>
         <Tab eventKey="category" title="活動類別" tabClassName="text-white">
-            <h1>活動類別</h1>
+            <Category />
         </Tab>
         <Tab eventKey="user" title="全部成員" tabClassName="text-white">
             <h1>全部成員</h1>
