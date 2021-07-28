@@ -9,11 +9,14 @@ import {
     FormControl,
 } from 'react-bootstrap'
 import { XCircle, PlusLg } from 'react-bootstrap-icons'
+import { ModalDel } from './ModalDel'
 
 export const CategoryList = (props) => {
+    const [category, setCategory] = React.useState({ name: '' })
+    const [DeleteShow, setDeleteShow] = React.useState(false)
     return (
         <>
-            <Row>
+            <Form as={Row}>
                 <Col
                     sm={{ span: 8, offset: 4 }}
                     lg={{ span: 4, offset: 8 }}
@@ -29,25 +32,45 @@ export const CategoryList = (props) => {
                         </InputGroup.Append>
                     </InputGroup>
                 </Col>
-                <Col className="py-1" sm="6" lg="3">
-                    <Card body bg="dark" className="text-white">
-                        <Card.Title className="my-auto" as={Row}>
-                            <Form.Check
-                                type="switch"
-                                id="custom-switch"
-                                label="大迎新"
-                                className="ml-3"
-                            />
-                            <Button
-                                variant="dark"
-                                className="px-2 pt-0 pb-1 ml-auto"
-                            >
-                                <XCircle size="20" />
-                            </Button>
-                        </Card.Title>
-                    </Card>
+                {props.categories.map(x => (
+                    <Col className="py-1" sm="6" lg="3">
+                        <Card body bg="dark" className="text-white">
+                            <Card.Title className="my-auto" as={Row}>
+                                <Form.Check
+                                    type="switch"
+                                    id={x.ID}
+                                    label={x.name}
+                                    className="ml-3"
+                                    defaultChecked={x.status}
+                                />
+                                <Button
+                                    variant="dark"
+                                    className="px-2 pt-0 pb-1 ml-auto"
+                                    onClick={() => {
+                                        setCategory(x)
+                                        setDeleteShow(true)
+                                    }}
+                                >
+                                    <XCircle size="20" />
+                                </Button>
+                            </Card.Title>
+                        </Card>
+                    </Col>
+                ))}
+                <Col xs={12} as={Row} className="py-2 justify-content-md-center">
+                    <Button type="submit" variant="success" className="mx-1">
+                        儲存
+                    </Button>
+                    <Button variant="light" className="mx-1">
+                        重製
+                    </Button>
                 </Col>
-            </Row>
+            </Form>
+            <ModalDel
+                category={category}
+                show={DeleteShow}
+                onHide={() => setDeleteShow(false)}
+            />
         </>
     )
 }
