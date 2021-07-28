@@ -2,6 +2,7 @@ import React from 'react'
 import { Tabs, Tab } from 'react-bootstrap'
 import { Officer } from './Officer'
 import { Category } from './Category'
+import { Member } from './Member'
 
 export const Organize = () => (
     <Tabs
@@ -17,7 +18,7 @@ export const Organize = () => (
             <Category />
         </Tab>
         <Tab eventKey="user" title="全部成員" tabClassName="text-white">
-            <h1>全部成員</h1>
+            <Member />
         </Tab>
     </Tabs>
 )
