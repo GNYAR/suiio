@@ -6,13 +6,10 @@ import { ModalDel } from './ModalDel'
 import { ModalEdit } from './ModalEdit'
 
 export const OfficerList = (props) => {
+    const [officer, setOfficer] = React.useState({ position: '', sID: '' })
     const [AddShow, setAddShow] = React.useState(false)
-    const [position, setPosition] = React.useState()
     const [EditShow, setEditShow] = React.useState(false)
     const [DeleteShow, setDeleteShow] = React.useState(false)
-    const selectedOfficer = props.officers.find(
-        (x) => x.position === position
-    ) || { position: '', sID: '' }
     return (
         <>
             <Row>
@@ -34,7 +31,7 @@ export const OfficerList = (props) => {
                                     variant="dark"
                                     className="px-2 pt-0 pb-1"
                                     onClick={() => {
-                                        setPosition(x.position)
+                                        setOfficer(x)
                                         setEditShow(true)
                                     }}
                                 >
@@ -44,7 +41,7 @@ export const OfficerList = (props) => {
                                     variant="dark"
                                     className="px-2 pt-0 pb-1"
                                     onClick={() => {
-                                        setPosition(x.position)
+                                        setOfficer(x)
                                         setDeleteShow(true)
                                     }}
                                 >
@@ -61,12 +58,12 @@ export const OfficerList = (props) => {
             </Row>
             <ModalAdd show={AddShow} onHide={() => setAddShow(false)} />
             <ModalEdit
-                officer={selectedOfficer}
+                officer={officer}
                 show={EditShow}
                 onHide={() => setEditShow(false)}
             />
             <ModalDel
-                officer={selectedOfficer}
+                officer={officer}
                 show={DeleteShow}
                 onHide={() => setDeleteShow(false)}
             />
