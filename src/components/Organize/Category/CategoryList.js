@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import {
     Row,
     Col,
@@ -11,66 +11,104 @@ import {
 import { XCircle, PlusLg } from 'react-bootstrap-icons'
 import { ModalDel } from './ModalDel'
 
-export const CategoryList = (props) => {
-    const [category, setCategory] = React.useState({ name: '' })
-    const [DeleteShow, setDeleteShow] = React.useState(false)
-    return (
-        <>
-            <Form as={Row}>
-                <Col
-                    sm={{ span: 8, offset: 4 }}
-                    lg={{ span: 4, offset: 8 }}
-                    className="py-1"
-                >
-                    <InputGroup className="mb-3">
-                        <FormControl placeholder="活動名稱" />
-                        <InputGroup.Append>
-                            <Button variant="info">
-                                <PlusLg size="14" className="mr-2" />
-                                新增
-                            </Button>
-                        </InputGroup.Append>
-                    </InputGroup>
-                </Col>
-                {props.categories.map(x => (
-                    <Col className="py-1" sm="6" lg="3">
-                        <Card body bg="dark" className="text-white">
-                            <Card.Title className="my-auto" as={Row}>
-                                <Form.Check
-                                    type="switch"
-                                    id={x.ID}
-                                    label={x.name}
-                                    className="ml-3"
-                                    defaultChecked={x.status}
-                                />
-                                <Button
-                                    variant="dark"
-                                    className="px-2 pt-0 pb-1 ml-auto"
-                                    onClick={() => {
-                                        setCategory(x)
-                                        setDeleteShow(true)
-                                    }}
-                                >
-                                    <XCircle size="20" />
+export class CategoryList extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            categories: [],
+            category: { id: '', name: 'ew' },
+            DeleteShow: false,
+            newCate: ''
+        }
+        fetch('http://localhost:4000/api/category/list')
+            .then((res) => res.json())
+            .then((data) => this.setState({ categories: data }))
+    }
+
+    update = () => {
+        fetch('http://localhost:4000/api/category/list')
+            .then((res) => res.json())
+            .then((data) => this.setState({ categories: data }))
+    }
+
+    add = (event) => {
+        event.preventDefault()
+        fetch('http://localhost:4000/api/category/add', {
+            method: 'POST',
+            headers: new Headers({
+                'Content-Type': 'application/json',
+            }),
+            body: JSON.stringify({ name: this.state.newCate }),
+        }).then(resp => {
+            console.log(resp);
+            if (resp.status !== 200)
+                return alert(`${resp.status}　${resp.statusText}`)
+            this.update()
+        })
+    }
+
+    render() {
+        return (
+            <>
+                <Form as={Row}>
+                    <Col
+                        sm={{ span: 8, offset: 4 }}
+                        lg={{ span: 4, offset: 8 }}
+                        className="py-1"
+                    >
+                        <InputGroup className="mb-3">
+                            <FormControl
+                                placeholder="活動名稱"
+                                onChange={(event) => this.setState({ newCate: event.target.value })}
+                            />
+                            <InputGroup.Append>
+                                <Button variant="info" onClick={this.add}>
+                                    <PlusLg size="14" className="mr-2" />
+                                    新增
                                 </Button>
-                            </Card.Title>
-                        </Card>
+                            </InputGroup.Append>
+                        </InputGroup>
                     </Col>
-                ))}
-                <Col xs={12} as={Row} className="py-2 justify-content-md-center">
-                    <Button type="submit" variant="success" className="mx-1">
-                        儲存
-                    </Button>
-                    <Button variant="light" className="mx-1">
-                        重製
-                    </Button>
-                </Col>
-            </Form>
-            <ModalDel
-                category={category}
-                show={DeleteShow}
-                onHide={() => setDeleteShow(false)}
-            />
-        </>
-    )
+                    {this.state.categories.map(x => (
+                        <Col className="py-1" sm="6" lg="3">
+                            <Card body bg="dark" className="text-white">
+                                <Card.Title className="my-auto" as={Row}>
+                                    <Form.Check
+                                        type="switch"
+                                        id={x.ID}
+                                        label={x.name}
+                                        className="ml-3"
+                                        defaultChecked={x.status}
+                                    />
+                                    <Button
+                                        variant="dark"
+                                        className="px-2 pt-0 pb-1 ml-auto"
+                                        onClick={() => {
+                                            this.setState({ category: x })
+                                            this.setState({ DeleteShow: true })
+                                        }}
+                                    >
+                                        <XCircle size="20" />
+                                    </Button>
+                                </Card.Title>
+                            </Card>
+                        </Col>
+                    ))}
+                    <Col xs={12} as={Row} className="py-2 justify-content-md-center">
+                        <Button type="submit" variant="success" className="mx-1">
+                            儲存
+                        </Button>
+                        <Button variant="light" className="mx-1">
+                            重製
+                        </Button>
+                    </Col>
+                </Form>
+                <ModalDel
+                    category={this.state.category}
+                    show={this.state.DeleteShow}
+                    onHide={() => this.setState({ DeleteShow: false })}
+                />
+            </>
+        )
+    }
 }
