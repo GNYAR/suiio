@@ -98,7 +98,10 @@ export class CategoryList extends Component {
                 <ModalDel
                     category={this.state.category}
                     show={this.state.DeleteShow}
-                    onHide={() => this.setState({ DeleteShow: false })}
+                    onHide={() => {
+                        this.setState({ DeleteShow: false })
+                        this.update()
+                    }}
                 />
             </>
         )
