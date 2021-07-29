@@ -29,6 +29,7 @@ export class CategoryList extends Component {
         fetch('http://localhost:4000/api/category/list')
             .then((res) => res.json())
             .then((data) => this.setState({ categories: data }))
+        this.setState({ newCate: '' })
     }
 
     add = (event) => {
@@ -76,6 +77,7 @@ export class CategoryList extends Component {
                         <InputGroup className="mb-3">
                             <FormControl
                                 placeholder="活動名稱"
+                                value={this.state.newCate}
                                 onChange={(event) => this.setState({ newCate: event.target.value })}
                             />
                             <InputGroup.Append>
