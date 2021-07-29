@@ -40,7 +40,24 @@ export class CategoryList extends Component {
             }),
             body: JSON.stringify({ name: this.state.newCate }),
         }).then(resp => {
-            console.log(resp);
+            if (resp.status !== 200)
+                return alert(`${resp.status}　${resp.statusText}`)
+            this.update()
+        })
+    }
+
+    switch = (cate) => {
+        const data = {
+            ID: cate.ID,
+            status: cate.status ? 0 : 1
+        }
+        fetch('http://localhost:4000/api/category/setStatus', {
+            method: 'POST',
+            headers: new Headers({
+                'Content-Type': 'application/json',
+            }),
+            body: JSON.stringify(data),
+        }).then(resp => {
             if (resp.status !== 200)
                 return alert(`${resp.status}　${resp.statusText}`)
             this.update()
@@ -79,6 +96,7 @@ export class CategoryList extends Component {
                                         label={x.name}
                                         className="ml-3"
                                         defaultChecked={x.status}
+                                        onChange={() => this.switch(x)}
                                     />
                                     <Button
                                         variant="dark"
