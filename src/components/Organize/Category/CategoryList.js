@@ -50,7 +50,7 @@ export class CategoryList extends Component {
     render() {
         return (
             <>
-                <Form as={Row}>
+                <Row>
                     <Col
                         sm={{ span: 8, offset: 4 }}
                         lg={{ span: 4, offset: 8 }}
@@ -94,15 +94,7 @@ export class CategoryList extends Component {
                             </Card>
                         </Col>
                     ))}
-                    <Col xs={12} as={Row} className="py-2 justify-content-md-center">
-                        <Button type="submit" variant="success" className="mx-1">
-                            儲存
-                        </Button>
-                        <Button variant="light" className="mx-1">
-                            重製
-                        </Button>
-                    </Col>
-                </Form>
+                </Row>
                 <ModalDel
                     category={this.state.category}
                     show={this.state.DeleteShow}
