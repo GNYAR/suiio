@@ -10,8 +10,8 @@ export class ModalDel extends Component {
                 'Content-Type': 'application/json',
             }),
             body: JSON.stringify(this.props.category),
-        }).then(resp => {
-            console.log(resp);
+        }).then((resp) => {
+            console.log(resp)
             if (resp.status !== 200)
                 return alert(`${resp.status}　${resp.statusText}`)
             this.props.onHide()

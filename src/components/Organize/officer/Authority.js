@@ -30,11 +30,13 @@ export class Authority extends Component {
                 'Content-Type': 'application/json',
             }),
             body: JSON.stringify(data),
-        }).then(resp => {
-            console.log(data);
-            if (resp.status !== 200)
-                return alert(`${resp.status}　${resp.statusText}`)
-        }).then(window.location.reload())
+        })
+            .then((resp) => {
+                console.log(data)
+                if (resp.status !== 200)
+                    return alert(`${resp.status}　${resp.statusText}`)
+            })
+            .then(window.location.reload())
     }
 
     render() {
@@ -52,16 +54,26 @@ export class Authority extends Component {
                                     <Form.Control
                                         as="select"
                                         size="lg"
-                                        onChange={(event) => { this.state[authorities[auth]][0] = event.target.value }}
+                                        onChange={(event) => {
+                                            this.state[authorities[auth]][0] =
+                                                event.target.value
+                                        }}
                                     >
                                         {this.props.officers.map((x) => {
                                             if (
-                                                !this.state[authorities[auth]][0] &&
+                                                !this.state[
+                                                    authorities[auth]
+                                                ][0] &&
                                                 x.authority === auth
                                             ) {
-                                                this.state[authorities[auth]][0] = x.position
+                                                this.state[
+                                                    authorities[auth]
+                                                ][0] = x.position
                                                 return (
-                                                    <option value={x.position} selected>
+                                                    <option
+                                                        value={x.position}
+                                                        selected
+                                                    >
                                                         {x.position} ({x.sID})
                                                     </option>
                                                 )
@@ -78,17 +90,28 @@ export class Authority extends Component {
                                     <Form.Control
                                         as="select"
                                         size="lg"
-                                        onChange={(event) => { this.state[authorities[auth]][1] = event.target.value }}
+                                        onChange={(event) => {
+                                            this.state[authorities[auth]][1] =
+                                                event.target.value
+                                        }}
                                     >
                                         <option value={null}>---------</option>
                                         {this.props.officers.map((x) => {
                                             if (
-                                                x.position !== this.state[authorities[auth]][0] &&
+                                                x.position !==
+                                                    this.state[
+                                                        authorities[auth]
+                                                    ][0] &&
                                                 x.authority === auth
                                             ) {
-                                                this.state[authorities[auth]][1] = x.position
+                                                this.state[
+                                                    authorities[auth]
+                                                ][1] = x.position
                                                 return (
-                                                    <option value={x.position} selected>
+                                                    <option
+                                                        value={x.position}
+                                                        selected
+                                                    >
                                                         {x.position} ({x.sID})
                                                     </option>
                                                 )

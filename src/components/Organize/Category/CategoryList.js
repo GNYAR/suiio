@@ -18,7 +18,7 @@ export class CategoryList extends Component {
             categories: [],
             category: { id: '', name: 'ew' },
             DeleteShow: false,
-            newCate: ''
+            newCate: '',
         }
         fetch('http://localhost:4000/api/category/list')
             .then((res) => res.json())
@@ -40,7 +40,7 @@ export class CategoryList extends Component {
                 'Content-Type': 'application/json',
             }),
             body: JSON.stringify({ name: this.state.newCate }),
-        }).then(resp => {
+        }).then((resp) => {
             if (resp.status !== 200)
                 return alert(`${resp.status}　${resp.statusText}`)
             this.update()
@@ -50,7 +50,7 @@ export class CategoryList extends Component {
     switch = (cate) => {
         const data = {
             ID: cate.ID,
-            status: cate.status ? 0 : 1
+            status: cate.status ? 0 : 1,
         }
         fetch('http://localhost:4000/api/category/setStatus', {
             method: 'POST',
@@ -58,7 +58,7 @@ export class CategoryList extends Component {
                 'Content-Type': 'application/json',
             }),
             body: JSON.stringify(data),
-        }).then(resp => {
+        }).then((resp) => {
             if (resp.status !== 200)
                 return alert(`${resp.status}　${resp.statusText}`)
             this.update()
@@ -78,7 +78,11 @@ export class CategoryList extends Component {
                             <FormControl
                                 placeholder="活動名稱"
                                 value={this.state.newCate}
-                                onChange={(event) => this.setState({ newCate: event.target.value })}
+                                onChange={(event) =>
+                                    this.setState({
+                                        newCate: event.target.value,
+                                    })
+                                }
                             />
                             <InputGroup.Append>
                                 <Button variant="info" onClick={this.add}>
@@ -88,7 +92,7 @@ export class CategoryList extends Component {
                             </InputGroup.Append>
                         </InputGroup>
                     </Col>
-                    {this.state.categories.map(x => (
+                    {this.state.categories.map((x) => (
                         <Col className="py-1" sm="6" lg="3">
                             <Card body bg="dark" className="text-white">
                                 <Card.Title className="my-auto" as={Row}>

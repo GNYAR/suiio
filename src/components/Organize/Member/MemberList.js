@@ -17,7 +17,7 @@ export class MemberList extends Component {
             members: [],
             sID: '',
             DeleteShow: false,
-            newSID: ''
+            newSID: '',
         }
         fetch('http://localhost:4000/api/user/list')
             .then((res) => res.json())
@@ -39,7 +39,7 @@ export class MemberList extends Component {
                 'Content-Type': 'application/json',
             }),
             body: JSON.stringify({ sID: this.state.newSID }),
-        }).then(resp => {
+        }).then((resp) => {
             if (resp.status !== 200)
                 return alert(`${resp.status}　${resp.statusText}`)
             this.update()
@@ -59,7 +59,11 @@ export class MemberList extends Component {
                             <FormControl
                                 placeholder="成員學號"
                                 value={this.state.newSID}
-                                onChange={(event) => this.setState({ newSID: event.target.value })}
+                                onChange={(event) =>
+                                    this.setState({
+                                        newSID: event.target.value,
+                                    })
+                                }
                             />
                             <InputGroup.Append>
                                 <Button variant="info" onClick={this.add}>
@@ -69,7 +73,7 @@ export class MemberList extends Component {
                             </InputGroup.Append>
                         </InputGroup>
                     </Col>
-                    {this.state.members.map(x => (
+                    {this.state.members.map((x) => (
                         <Col className="py-1" sm="6" lg="3">
                             <Card body bg="dark" className="text-white">
                                 <Card.Title className="my-auto" as={Row}>

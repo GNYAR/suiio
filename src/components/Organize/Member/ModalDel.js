@@ -10,8 +10,8 @@ export class ModalDel extends Component {
                 'Content-Type': 'application/json',
             }),
             body: JSON.stringify({ sID: this.props.sID }),
-        }).then(resp => {
-            console.log(resp);
+        }).then((resp) => {
+            console.log(resp)
             if (resp.status !== 200)
                 return alert(`${resp.status}　${resp.statusText}`)
             this.props.onHide()
@@ -28,10 +28,7 @@ export class ModalDel extends Component {
                 </Modal.Header>
                 <Modal.Body>
                     確定要移除{' '}
-                    <strong className="text-danger">
-                        {this.props.sID}
-                    </strong>{' '}
-                    ?
+                    <strong className="text-danger">{this.props.sID}</strong> ?
                 </Modal.Body>
                 <Modal.Footer>
                     <Form>
