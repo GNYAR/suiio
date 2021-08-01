@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Authority } from './Authority'
+import { Permission } from './Permission'
 import { OfficerList } from './OfficerList'
 
 export class Officer extends Component {
@@ -17,7 +17,7 @@ export class Officer extends Component {
         return (
             <>
                 <OfficerList officers={this.state.officers} />
-                <Authority officers={this.state.officers} />
+                <Permission officers={this.state.officers} />
             </>
         )
     }

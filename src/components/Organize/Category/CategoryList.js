@@ -20,13 +20,13 @@ export class CategoryList extends Component {
             DeleteShow: false,
             newCate: '',
         }
-        fetch('http://localhost:4000/api/category/list')
+        fetch('http://localhost:4000/api/category/fetch/all')
             .then((res) => res.json())
             .then((data) => this.setState({ categories: data }))
     }
 
     update = () => {
-        fetch('http://localhost:4000/api/category/list')
+        fetch('http://localhost:4000/api/category/fetch/all')
             .then((res) => res.json())
             .then((data) => this.setState({ categories: data }))
         this.setState({ newCate: '' })
@@ -52,7 +52,7 @@ export class CategoryList extends Component {
             ID: cate.ID,
             status: cate.status ? 0 : 1,
         }
-        fetch('http://localhost:4000/api/category/setStatus', {
+        fetch('http://localhost:4000/api/category/update/status', {
             method: 'POST',
             headers: new Headers({
                 'Content-Type': 'application/json',

@@ -24,8 +24,11 @@ export class ModalEdit extends Component {
                 sID: this.state.sID,
                 position: this.props.officer.position,
             }),
+        }).then((resp) => {
+            if (resp.status !== 200)
+                return alert(`${resp.status}　${resp.statusText}`)
+            window.location.reload()
         })
-        window.location.reload()
     }
 
     render() {

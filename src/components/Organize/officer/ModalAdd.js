@@ -22,8 +22,11 @@ export class ModalAdd extends Component {
                 'Content-Type': 'application/json',
             }),
             body: JSON.stringify(this.state),
+        }).then((resp) => {
+            if (resp.status !== 200)
+                return alert(`${resp.status}　${resp.statusText}`)
+            window.location.reload()
         })
-        window.location.reload()
     }
 
     render() {

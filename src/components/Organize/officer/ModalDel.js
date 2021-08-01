@@ -10,8 +10,11 @@ export class ModalDel extends Component {
                 'Content-Type': 'application/json',
             }),
             body: JSON.stringify(this.props.officer),
+        }).then((resp) => {
+            if (resp.status !== 200)
+                return alert(`${resp.status}　${resp.statusText}`)
+            window.location.reload()
         })
-        window.location.reload()
     }
 
     render() {

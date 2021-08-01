@@ -4,7 +4,7 @@ import { Button, Form, Modal } from 'react-bootstrap'
 export class ModalDel extends Component {
     delete = (event) => {
         event.preventDefault()
-        fetch('http://localhost:4000/api/user/del', {
+        fetch('http://localhost:4000/api/member/delete', {
             method: 'POST',
             headers: new Headers({
                 'Content-Type': 'application/json',

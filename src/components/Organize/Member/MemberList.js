@@ -19,13 +19,13 @@ export class MemberList extends Component {
             DeleteShow: false,
             newSID: '',
         }
-        fetch('http://localhost:4000/api/user/list')
+        fetch('http://localhost:4000/api/member/fetch/all')
             .then((res) => res.json())
             .then((data) => this.setState({ members: data }))
     }
 
     update = () => {
-        fetch('http://localhost:4000/api/user/list')
+        fetch('http://localhost:4000/api/member/fetch/all')
             .then((res) => res.json())
             .then((data) => this.setState({ members: data }))
         this.setState({ newSID: '' })
@@ -33,7 +33,7 @@ export class MemberList extends Component {
 
     add = (event) => {
         event.preventDefault()
-        fetch('http://localhost:4000/api/user/add', {
+        fetch('http://localhost:4000/api/member/add', {
             method: 'POST',
             headers: new Headers({
                 'Content-Type': 'application/json',
