@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Row, Col, Modal, Form } from 'react-bootstrap'
+import { Row, Col, Modal, Form, Button } from 'react-bootstrap'
 
 export class ModalContent extends Component {
     // constructor(props) {
@@ -37,17 +37,17 @@ export class ModalContent extends Component {
                     <Modal.Header closeButton>
                         <Modal.Title>
                             <strong>
-                                <span className="text-success pr-3">大迎新</span>
-                                第一次籌備會議
+                                <span className="text-success pr-3">{this.props.conference.category}</span>
+                                {this.props.conference.name}
                             </strong>
                         </Modal.Title>
-                        <span className="text-muted pl-5">2021-07-31</span>
+                        <span className="text-muted pl-5">{this.props.conference.date}</span>
                     </Modal.Header>
                     <Modal.Body as={Row}>
                         <Col xs="2">
                             <h6>主　　席：
                                 <strong className="text-primary">
-                                    會長
+                                    {this.props.conference.host}
                                 </strong>
                             </h6>
                         </Col>
@@ -66,9 +66,21 @@ export class ModalContent extends Component {
                             </h6>
                         </Col>
                         <Col xs="12" className="pt-3">
-                            <Form.Control as="textarea" rows={15} readOnly />
+                            <Form.Control as="textarea" rows={15} readOnly defaultValue={this.props.content.content} />
                         </Col>
                     </Modal.Body>
+                    {this.props.review ?
+                        <Modal.Footer>
+                            <Button variant="success" type="submit">
+                                通過
+                            </Button>
+                            <Button variant="danger" onClick={this.props.onHide}>
+                                駁回
+                            </Button>
+                            <Button variant="light" onClick={this.props.onHide}>
+                                取消
+                            </Button>
+                        </Modal.Footer> : null}
                 </Form>
             </Modal >
         )

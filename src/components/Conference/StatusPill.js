@@ -2,7 +2,7 @@ import React from 'react'
 import { Row, Col, Button } from 'react-bootstrap'
 
 export const StatusPill = (props) => {
-    if (props.status === "0") {
+    if (props.status === "4") {
         return (
             <Button
                 variant="danger"
@@ -28,7 +28,7 @@ export const StatusPill = (props) => {
         <Button
             variant="secondary"
             className="px-1 py-0 rounded-pill overflow-hidden float-right"
-            disabled
+            onClick={props.onClick}
         >
             <Row>
                 <Col xs="auto" className={"pl-3 pr-1" + (props.status === "2" ? " bg-primary" : "")}>

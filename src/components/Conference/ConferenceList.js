@@ -10,8 +10,11 @@ export class ConferenceList extends Component {
         super(props)
         this.state = {
             conferences: [],
+            selected: {},
+            content: {},
             ContentShow: false,
-            AddShow: false
+            AddShow: false,
+            review: false
         }
         this.update()
     }
@@ -20,6 +23,12 @@ export class ConferenceList extends Component {
         fetch('http://localhost:4000/api/conference/fetch/all')
             .then((res) => res.json())
             .then((data) => this.setState({ conferences: data }))
+    }
+
+    fetchContent = (id) => {
+        fetch(`http://localhost:4000/api/conference/fetch/content/${id}`)
+            .then((res) => res.json())
+            .then((data) => this.setState({ content: data[0] }))
     }
 
     render() {
@@ -38,7 +47,14 @@ export class ConferenceList extends Component {
                     </Col>
                     {this.state.conferences.map(x =>
                         <Col className="py-1" md="6" lg="4">
-                            <Card bg="dark" className="text-white" onClick={() => this.setState({ ContentShow: true })}>
+                            <Card
+                                bg="dark"
+                                className="text-white"
+                                onClick={() => {
+                                    this.setState({ selected: x, ContentShow: true })
+                                    this.fetchContent(x.ID)
+                                }}
+                            >
                                 <Card.Header className="text-muted font-weight-bolder">
                                     <Row>
                                         <Col>{x.category}</Col>
@@ -46,7 +62,7 @@ export class ConferenceList extends Component {
                                     </Row>
                                 </Card.Header>
                                 <Card.Body>
-                                    <StatusPill status={x.status} />
+                                    <StatusPill status={x.status} onClick={() => this.setState({ review: true })} />
                                     <Card.Title>{x.name}</Card.Title>
                                     <Card.Subtitle className="pb-2 text-info">
                                         主　席：{x.host}
@@ -59,10 +75,15 @@ export class ConferenceList extends Component {
                         </Col>
                     )}
                 </Row>
-                <ModalContent show={this.state.ContentShow} onHide={() => this.setState({ ContentShow: false })} />
-                <ModalAdd show={this.state.AddShow} onHide={() => this.setState({ AddShow: true })} />
+                <ModalContent
+                    show={this.state.ContentShow}
+                    conference={this.state.selected}
+                    content={this.state.content}
+                    review={this.state.review}
+                    onHide={() => this.setState({ ContentShow: false, review: false })}
+                />
+                <ModalAdd show={this.state.AddShow} onHide={() => this.setState({ AddShow: false })} />
             </>
         )
     }
-
 }
