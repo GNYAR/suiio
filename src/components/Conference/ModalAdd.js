@@ -2,29 +2,45 @@ import React, { Component } from 'react'
 import { Row, Col, Button, Modal, Form } from 'react-bootstrap'
 
 export class ModalAdd extends Component {
-    // constructor(props) {
-    //     super(props)
-    //     this.state = {
-    //         position: '',
-    //         sID: '',
-    //     }
-    // }
+    constructor(props) {
+        super(props)
+        this.state = {
+            form: {
+                category: '',
+                name: '',
+                date: '',
+                content: '',
+                host: '',
+                recorder: '',
+                absentees: '',
+                attendees: ''
+            },
+            officers: []
+        }
+        this.setOfficers()
+    }
 
-    // changeHandler = (event) => {
-    //     this.setState({ [event.target.name]: event.target.value })
-    // }
+    changeHandler = (event) => {
+        this.setState({ form: { [event.target.name]: event.target.value } })
+    }
 
-    // add = (event) => {
-    //     event.preventDefault()
-    //     fetch('http://localhost:4000/api/officers/add', {
-    //         method: 'POST',
-    //         headers: new Headers({
-    //             'Content-Type': 'application/json',
-    //         }),
-    //         body: JSON.stringify(this.state),
-    //     })
-    //     window.location.reload()
-    // }
+    setOfficers = () => {
+        fetch('http://localhost:4000/api/officers/fetch/all')
+            .then((res) => res.json())
+            .then((data) => this.setState({ officers: data }))
+    }
+
+    add = (event) => {
+        event.preventDefault()
+        fetch('http://localhost:4000/api/officers/add', {
+            method: 'POST',
+            headers: new Headers({
+                'Content-Type': 'application/json',
+            }),
+            body: JSON.stringify(this.state.form),
+        })
+        window.location.reload()
+    }
 
     render() {
         return (
@@ -48,7 +64,7 @@ export class ModalAdd extends Component {
                                 <Col>
                                     <Form.Control
                                         type="text"
-                                        name="position"
+                                        name="name"
                                         onChange={this.changeHandler}
                                     />
                                 </Col>
@@ -62,6 +78,7 @@ export class ModalAdd extends Component {
                                 <Col>
                                     <Form.Control
                                         as="select"
+                                        name="category"
                                     >
                                         <option value="0">例行會議</option>
                                         <option value="1">One</option>
@@ -79,7 +96,7 @@ export class ModalAdd extends Component {
                                 <Col>
                                     <Form.Control
                                         type="date"
-                                        name="position"
+                                        name="date"
                                         onChange={this.changeHandler}
                                     />
                                 </Col>
@@ -93,11 +110,22 @@ export class ModalAdd extends Component {
                                 <Col>
                                     <Form.Control
                                         as="select"
+                                        name="host"
+                                        onChange={this.changeHandler}
                                     >
-                                        <option value="0">會長</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
+                                        {this.state.officers.map(x => {
+                                            if (x.position === "會長")
+                                                return (
+                                                    <option value={x.position} selected>
+                                                        {x.position} ({x.sID})
+                                                    </option>
+                                                )
+                                            return (
+                                                <option value={x.position}>
+                                                    {x.position} ({x.sID})
+                                                </option>
+                                            )
+                                        })}
                                     </Form.Control>
                                 </Col>
                             </Form.Group>
@@ -107,10 +135,14 @@ export class ModalAdd extends Component {
                                 <Form.Label column sm="auto">
                                     出席幹部：
                                 </Form.Label>
-                                <Form.Check inline label="會長" name="group1" className="pl-3" />
-                                <Form.Check inline label="副會長" name="group1" className="pl-3" />
-                                <Form.Check inline label="活動長" name="group1" className="pl-3" />
-                                <Form.Check inline label="器材長" name="group1" className="pl-3" />
+                                <div className="mt-2">
+                                    {this.state.officers.map(x => (
+                                        <Form.Check
+                                            inline label={x.position}
+                                            name="attendees"
+                                            className="pl-3" />
+                                    ))}
+                                </div>
                             </Form.Group>
                         </Col>
                         <Col xs="12">
@@ -119,7 +151,7 @@ export class ModalAdd extends Component {
                                     會議內容：
                                 </Form.Label>
                                 <Col>
-                                    <Form.Control as="textarea" rows={5} />
+                                    <Form.Control as="textarea" name="content" rows={10} />
                                 </Col>
                             </Form.Group>
                         </Col>
