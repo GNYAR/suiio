@@ -55,10 +55,10 @@ export class ConferenceList extends Component {
                                     this.fetchContent(x.ID)
                                 }}
                             >
-                                <Card.Header className="text-muted font-weight-bolder">
+                                <Card.Header className="text-primary font-weight-bolder">
                                     <Row>
                                         <Col>{x.category}</Col>
-                                        <Col xs="auto">{x.date}</Col>
+                                        <Col xs="auto" className="text-muted">{x.date}</Col>
                                     </Row>
                                 </Card.Header>
                                 <Card.Body>
@@ -68,7 +68,7 @@ export class ConferenceList extends Component {
                                         主　席：{x.host}
                                     </Card.Subtitle>
                                     <Card.Subtitle className="text-info">
-                                        記錄人：資訊長
+                                        記錄人：{x.recorder}
                                     </Card.Subtitle>
                                 </Card.Body>
                             </Card>
