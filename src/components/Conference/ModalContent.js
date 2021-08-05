@@ -2,29 +2,20 @@ import React, { Component } from 'react'
 import { Row, Col, Modal, Form, Button } from 'react-bootstrap'
 
 export class ModalContent extends Component {
-    // constructor(props) {
-    //     super(props)
-    //     this.state = {
-    //         position: '',
-    //         sID: '',
-    //     }
-    // }
 
-    // changeHandler = (event) => {
-    //     this.setState({ [event.target.name]: event.target.value })
-    // }
-
-    // add = (event) => {
-    //     event.preventDefault()
-    //     fetch('http://localhost:4000/api/officers/add', {
-    //         method: 'POST',
-    //         headers: new Headers({
-    //             'Content-Type': 'application/json',
-    //         }),
-    //         body: JSON.stringify(this.state),
-    //     })
-    //     window.location.reload()
-    // }
+    updateStatus = (id, status) => {
+        fetch('http://localhost:4000/api/conference/update/status', {
+            method: 'POST',
+            headers: new Headers({
+                'Content-Type': 'application/json',
+            }),
+            body: JSON.stringify({ id, status }),
+        }).then((resp) => {
+            if (resp.status !== 200)
+                return alert(`${resp.status}　${resp.statusText}`)
+            window.location.reload()
+        })
+    }
 
     render() {
         return (
@@ -33,7 +24,7 @@ export class ModalContent extends Component {
                 backdrop="static"
                 size="xl"
                 centered>
-                <Form onSubmit={this.add}>
+                <Form>
                     <Modal.Header closeButton>
                         <Modal.Title>
                             <strong>
@@ -71,10 +62,23 @@ export class ModalContent extends Component {
                     </Modal.Body>
                     {this.props.review ?
                         <Modal.Footer>
-                            <Button variant="success" type="submit">
+                            <Button variant="success" onClick={() => {
+                                // eslint-disable-next-line default-case
+                                switch (this.props.conference.status) {
+                                    case "0":
+                                        this.updateStatus(this.props.conference.ID, 2)
+                                        break;
+                                    case "2":
+                                    case "3":
+                                        this.updateStatus(this.props.conference.ID, 1)
+                                        break;
+                                }
+                            }}>
                                 通過
                             </Button>
-                            <Button variant="danger" onClick={this.props.onHide}>
+                            <Button variant="danger" onClick={() => {
+                                this.updateStatus(this.props.conference.ID, 4)
+                            }}>
                                 駁回
                             </Button>
                             <Button variant="light" onClick={this.props.onHide}>
