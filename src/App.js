@@ -5,6 +5,7 @@ import { Layout } from './components/Layout'
 import { NoMatch } from './components/NoMatch'
 import { Organize } from './components/Organize'
 import { Conference } from './components/Conference'
+import { Finance } from './components/Finance'
 
 // import { Jumbotron } from './components/Jumbotron';
 
@@ -16,8 +17,9 @@ function App() {
             <Layout>
                 <Router>
                     <Switch>
-                        <Route path="/organize" component={Organize} />
+                        <Route path="/finace" component={Finance} />
                         <Route path="/conference" component={Conference} />
+                        <Route path="/organize" component={Organize} />
                         <Route component={NoMatch} />
                     </Switch>
                 </Router>
