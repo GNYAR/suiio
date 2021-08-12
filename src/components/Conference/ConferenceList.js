@@ -55,7 +55,7 @@ export class ConferenceList extends Component {
                                     this.fetchContent(x.ID)
                                 }}
                             >
-                                <Card.Header className="text-primary font-weight-bolder">
+                                <Card.Header className="text-warning font-weight-bolder">
                                     <Row>
                                         <Col>{x.category}</Col>
                                         <Col xs="auto" className="text-muted">{x.date}</Col>
