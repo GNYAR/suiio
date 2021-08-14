@@ -2,7 +2,7 @@ import React from 'react'
 import { Row, Col, Button } from 'react-bootstrap'
 
 export const StatusPill = (props) => {
-    if (props.status === "4") {
+    if (props.status === '4') {
         return (
             <Button
                 variant="danger"
@@ -13,7 +13,7 @@ export const StatusPill = (props) => {
             </Button>
         )
     }
-    if (props.status === "1") {
+    if (props.status === '1') {
         return (
             <Button
                 variant="success"
@@ -31,10 +31,22 @@ export const StatusPill = (props) => {
             onClick={props.onClick}
         >
             <Row>
-                <Col xs="auto" className={"pl-3 pr-1" + (props.status === "2" ? " bg-primary" : "")}>
+                <Col
+                    xs="auto"
+                    className={
+                        'pl-3 pr-1' +
+                        (props.status === '2' ? ' bg-primary' : '')
+                    }
+                >
                     組織
                 </Col>
-                <Col xs="auto" className={"pr-3 pl-1" + (props.status === "3" ? " bg-primary" : "")}>
+                <Col
+                    xs="auto"
+                    className={
+                        'pr-3 pl-1' +
+                        (props.status === '3' ? ' bg-primary' : '')
+                    }
+                >
                     財務
                 </Col>
             </Row>
