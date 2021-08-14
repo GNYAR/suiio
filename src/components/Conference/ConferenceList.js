@@ -25,8 +25,8 @@ export class ConferenceList extends Component {
             .then((data) => this.setState({ conferences: data }))
     }
 
-    fetchContent = (id) => {
-        fetch(`http://localhost:4000/api/conference/fetch/content/${id}`)
+    fetchContent = async (id) => {
+        await fetch(`http://localhost:4000/api/conference/fetch/content/${id}`)
             .then((res) => res.json())
             .then((data) => this.setState({ content: data[0] }))
     }
@@ -50,9 +50,9 @@ export class ConferenceList extends Component {
                             <Card
                                 bg="dark"
                                 className="text-white"
-                                onClick={() => {
+                                onClick={async () => {
+                                    await this.fetchContent(x.ID)
                                     this.setState({ selected: x, ContentShow: true })
-                                    this.fetchContent(x.ID)
                                 }}
                             >
                                 <Card.Header className="text-warning font-weight-bolder">
