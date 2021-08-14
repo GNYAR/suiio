@@ -12,10 +12,10 @@ export class ModalAdd extends Component {
                 content: '',
                 host: '會長',
                 recorder: '副會長',
-                attendees: []
+                attendees: [],
             },
             officers: [],
-            categories: []
+            categories: [],
         }
         this.setOfficers()
         this.setCategories()
@@ -30,7 +30,7 @@ export class ModalAdd extends Component {
             .then((res) => res.json())
             .then((data) => {
                 this.setState({ officers: data })
-                this.state.form.attendees = data.map(x => x.position)
+                this.state.form.attendees = data.map((x) => x.position)
             })
     }
 
@@ -57,11 +57,7 @@ export class ModalAdd extends Component {
 
     render() {
         return (
-            <Modal
-                {...this.props}
-                backdrop="static"
-                size="xl"
-                centered>
+            <Modal {...this.props} backdrop="static" size="xl" centered>
                 <Form onSubmit={this.add}>
                     <Modal.Header>
                         <Modal.Title>
@@ -95,7 +91,7 @@ export class ModalAdd extends Component {
                                         onChange={this.changeHandler}
                                     >
                                         <option value="1">例行會議</option>
-                                        {this.state.categories.map(x => (
+                                        {this.state.categories.map((x) => (
                                             <option value={x.ID}>
                                                 {x.name}
                                             </option>
@@ -129,10 +125,13 @@ export class ModalAdd extends Component {
                                         name="host"
                                         onChange={this.changeHandler}
                                     >
-                                        {this.state.officers.map(x => {
-                                            if (x.position === "會長") {
+                                        {this.state.officers.map((x) => {
+                                            if (x.position === '會長') {
                                                 return (
-                                                    <option value={x.position} selected>
+                                                    <option
+                                                        value={x.position}
+                                                        selected
+                                                    >
                                                         {x.position} ({x.sID})
                                                     </option>
                                                 )
@@ -153,18 +152,29 @@ export class ModalAdd extends Component {
                                     出席幹部：
                                 </Form.Label>
                                 <Col>
-                                    {this.state.officers.map(x => (
+                                    {this.state.officers.map((x) => (
                                         <Form.Check
-                                            inline label={x.position}
+                                            inline
+                                            label={x.position}
                                             name="attendees"
                                             className="pl-3"
-                                            checked={this.state.form.attendees.includes(x.position)}
+                                            checked={this.state.form.attendees.includes(
+                                                x.position
+                                            )}
                                             onChange={(event) => {
-                                                const index = this.state.form.attendees.indexOf(x.position)
+                                                const index =
+                                                    this.state.form.attendees.indexOf(
+                                                        x.position
+                                                    )
                                                 if (index > -1)
-                                                    this.state.form.attendees.splice(index, 1)
+                                                    this.state.form.attendees.splice(
+                                                        index,
+                                                        1
+                                                    )
                                                 else
-                                                    this.state.form.attendees.push(x.position)
+                                                    this.state.form.attendees.push(
+                                                        x.position
+                                                    )
                                                 this.forceUpdate()
                                             }}
                                         />

@@ -14,7 +14,7 @@ export class ConferenceList extends Component {
             content: {},
             ContentShow: false,
             AddShow: false,
-            review: false
+            review: false,
         }
         this.update()
     }
@@ -45,24 +45,34 @@ export class ConferenceList extends Component {
                             撰寫紀錄
                         </Button>
                     </Col>
-                    {this.state.conferences.map(x =>
+                    {this.state.conferences.map((x) => (
                         <Col className="py-1" md="6" lg="4">
                             <Card
                                 bg="dark"
                                 className="text-white"
                                 onClick={async () => {
                                     await this.fetchContent(x.ID)
-                                    this.setState({ selected: x, ContentShow: true })
+                                    this.setState({
+                                        selected: x,
+                                        ContentShow: true,
+                                    })
                                 }}
                             >
                                 <Card.Header className="text-warning font-weight-bolder">
                                     <Row>
                                         <Col>{x.category}</Col>
-                                        <Col xs="auto" className="text-muted">{x.date}</Col>
+                                        <Col xs="auto" className="text-muted">
+                                            {x.date}
+                                        </Col>
                                     </Row>
                                 </Card.Header>
                                 <Card.Body>
-                                    <StatusPill status={x.status} onClick={() => this.setState({ review: true })} />
+                                    <StatusPill
+                                        status={x.status}
+                                        onClick={() =>
+                                            this.setState({ review: true })
+                                        }
+                                    />
                                     <Card.Title>{x.name}</Card.Title>
                                     <Card.Subtitle className="pb-2 text-info">
                                         主　席：{x.host}
@@ -73,16 +83,21 @@ export class ConferenceList extends Component {
                                 </Card.Body>
                             </Card>
                         </Col>
-                    )}
+                    ))}
                 </Row>
                 <ModalContent
                     show={this.state.ContentShow}
                     conference={this.state.selected}
                     content={this.state.content}
                     review={this.state.review}
-                    onHide={() => this.setState({ ContentShow: false, review: false })}
+                    onHide={() =>
+                        this.setState({ ContentShow: false, review: false })
+                    }
                 />
-                <ModalAdd show={this.state.AddShow} onHide={() => this.setState({ AddShow: false })} />
+                <ModalAdd
+                    show={this.state.AddShow}
+                    onHide={() => this.setState({ AddShow: false })}
+                />
             </>
         )
     }
