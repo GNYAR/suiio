@@ -9,27 +9,26 @@ export class AccountList extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            conferences: [],
+            accounts: [],
             selected: {},
-            content: {},
             ContentShow: false,
             AddShow: false,
             review: false
         }
-        // this.update()
+        this.update()
     }
 
-    // update = () => {
-    //     fetch('http://localhost:4000/api/conference/fetch/all')
-    //         .then((res) => res.json())
-    //         .then((data) => this.setState({ conferences: data }))
-    // }
+    update = () => {
+        fetch('http://localhost:4000/api/account/fetch/all')
+            .then((res) => res.json())
+            .then((data) => this.setState({ accounts: data }))
+    }
 
-    // fetchContent = (id) => {
-    //     fetch(`http://localhost:4000/api/conference/fetch/content/${id}`)
-    //         .then((res) => res.json())
-    //         .then((data) => this.setState({ content: data[0] }))
-    // }
+    fetchContent = async (id) => {
+        await fetch(`http://localhost:4000/api/account/fetch/id/${id}`)
+            .then((res) => res.json())
+            .then((data) => this.setState({ selected: data[0] }))
+    }
 
     render() {
         return (
@@ -45,40 +44,44 @@ export class AccountList extends Component {
                             提交申請
                         </Button>
                     </Col>
-                    <Col className="py-1" md="6" lg="4">
-                        <Card
-                            bg="dark"
-                            className="text-white"
-                            onClick={() => {
-                                this.setState({ selected: "s", ContentShow: true })
-                                // this.fetchContent(x.ID)
-                            }}
-                        >
-                            <Card.Header className="text-primary font-weight-bolder">
-                                <Row>
-                                    <Col>大迎新</Col>
-                                    <Col xs="auto" className="text-muted">2021-7-14</Col>
-                                </Row>
-                            </Card.Header>
-                            <Card.Body>
-                                <StatusPill status={0} onClick={() => this.setState({ review: true })} />
-                                <Card.Title>夜遊用品(火把)</Card.Title>
-                                <div className="d-flex">
-                                    <Card.Subtitle className="pb-2 text-info">
-                                        <div>申請人：公關長</div>
-                                    </Card.Subtitle>
-                                    <h4 className="ml-auto text-danger"><b>-270</b></h4>
-                                </div>
-                            </Card.Body>
-                        </Card>
-                    </Col>
+                    {this.state.accounts.map(x => (
+                        <Col className="py-1" md="6" lg="4">
+                            <Card
+                                bg="dark"
+                                className="text-white"
+                                onClick={async () => {
+                                    await this.fetchContent(x.ID)
+                                    this.setState({ ContentShow: true })
+                                }}
+                            >
+                                <Card.Header className="text-warning font-weight-bolder">
+                                    <Row>
+                                        <Col>{x.category}</Col>
+                                        <Col xs="auto" className="text-muted">{x.date}</Col>
+                                    </Row>
+                                </Card.Header>
+                                <Card.Body>
+                                    <StatusPill status={x.review} onClick={() => this.setState({ review: true })} />
+                                    <Card.Title>{x.name}</Card.Title>
+                                    <div className="d-flex">
+                                        <Card.Subtitle className="pb-2 text-info">
+                                            <div>申請人：{x.uploadBy}</div>
+                                        </Card.Subtitle>
+                                        <h4 className={`ml-auto ${x.cost > 0 ? "text-success" : "text-danger"}`}><b>{x.cost}</b></h4>
+                                    </div>
+                                </Card.Body>
+                            </Card>
+                        </Col>
+                    ))}
                 </Row>
                 <ModalContent
                     show={this.state.ContentShow}
-                    conference={this.state.selected}
-                    content={this.state.content}
+                    account={this.state.selected}
                     review={this.state.review}
-                    onHide={() => this.setState({ ContentShow: false, review: false })}
+                    onHide={() => {
+                        this.setState({ ContentShow: false, review: false })
+                        this.update()
+                    }}
                 />
                 <ModalAdd show={this.state.AddShow} onHide={() => this.setState({ AddShow: false })} />
             </>
