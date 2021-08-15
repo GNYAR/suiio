@@ -1,6 +1,7 @@
 import React from 'react'
 import { Tabs, Tab } from 'react-bootstrap'
 import { Account } from './Account'
+import { Statement } from './Statement'
 
 export const Finance = () => (
     <Tabs
@@ -13,6 +14,7 @@ export const Finance = () => (
             <Account />
         </Tab>
         <Tab eventKey="statement" title="財務報表" tabClassName="text-white">
+            <Statement />
         </Tab>
         <Tab eventKey="budget" title="預算列表" tabClassName="text-white">
         </Tab>
