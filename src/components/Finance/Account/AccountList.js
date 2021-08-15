@@ -3,7 +3,7 @@ import { Row, Col, Card, Button } from 'react-bootstrap'
 import { Pen } from 'react-bootstrap-icons'
 import { ModalContent } from './ModalContent'
 import { ModalAdd } from './ModalAdd'
-import { StatusPill } from './StatusPill'
+import { StatusPill } from '../../StatusPill'
 
 export class AccountList extends Component {
     constructor(props) {
