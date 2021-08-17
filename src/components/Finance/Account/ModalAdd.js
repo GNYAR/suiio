@@ -5,42 +5,44 @@ export class ModalAdd extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            file: "尚未選擇檔案",
             form: {
                 category: '',
                 name: '',
                 date: '',
                 content: '',
-                host: '',
-                recorder: '',
-                absentees: '',
-                attendees: ''
+                cost: '',
+                uploadBy: '財務長'
             },
-            officers: []
+            type: -1,
+            categories: []
         }
-        // this.setOfficers()
+        this.setCategories()
     }
 
-    // changeHandler = (event) => {
-    //     this.setState({ form: { [event.target.name]: event.target.value } })
-    // }
+    changeHandler = (event) => {
+        this.state.form[event.target.name] = event.target.value
+    }
 
-    // setOfficers = () => {
-    //     fetch('http://localhost:4000/api/officers/fetch/all')
-    //         .then((res) => res.json())
-    //         .then((data) => this.setState({ officers: data }))
-    // }
+    setCategories = () => {
+        fetch('http://localhost:4000/api/category/fetch/status/1')
+            .then((res) => res.json())
+            .then((data) => this.setState({ categories: data }))
+    }
 
     add = (event) => {
         event.preventDefault()
-        fetch('http://localhost:4000/api/officers/add', {
+        this.state.form.cost *= this.state.type
+        fetch('http://localhost:4000/api/account/add', {
             method: 'POST',
             headers: new Headers({
                 'Content-Type': 'application/json',
             }),
             body: JSON.stringify(this.state.form),
+        }).then((resp) => {
+            if (resp.status !== 200)
+                return alert(`${resp.status}　${resp.statusText}`)
+            window.location.reload()
         })
-        window.location.reload()
     }
 
     render() {
@@ -66,6 +68,7 @@ export class ModalAdd extends Component {
                                     <Form.Control
                                         type="text"
                                         name="name"
+                                        onChange={this.changeHandler}
                                     />
                                 </Col>
                             </Form.Group>
@@ -79,11 +82,14 @@ export class ModalAdd extends Component {
                                     <Form.Control
                                         as="select"
                                         name="category"
+                                        onChange={this.changeHandler}
                                     >
-                                        <option value="0">一般開銷</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
+                                        <option value="1">一般開銷</option>
+                                        {this.state.categories.map((x) => (
+                                            <option value={x.ID}>
+                                                {x.name}
+                                            </option>
+                                        ))}
                                     </Form.Control>
                                 </Col>
                             </Form.Group>
@@ -109,13 +115,15 @@ export class ModalAdd extends Component {
                                     inline label="收入"
                                     className="text-success font-weight-bold"
                                     name="type"
+                                    onChange={(event) => this.setState({ type: 1 })}
                                 />
                                 <Form.Check
                                     type="radio"
                                     inline label="支出"
                                     className="text-danger font-weight-bold"
-                                    checked
                                     name="type"
+                                    onChange={(event) => this.setState({ type: -1 })}
+                                    checked
                                 />
                             </Form.Group>
                         </Col>
@@ -124,7 +132,11 @@ export class ModalAdd extends Component {
                                 <InputGroup.Prepend>
                                     <InputGroup.Text>NTD</InputGroup.Text>
                                 </InputGroup.Prepend>
-                                <Form.Control type="number" name="amount" />
+                                <Form.Control
+                                    type="number"
+                                    name="cost"
+                                    onChange={this.changeHandler}
+                                />
                             </InputGroup>
                         </Col>
                         <Col xs="12">
@@ -133,7 +145,12 @@ export class ModalAdd extends Component {
                                     細部說明：
                                 </Form.Label>
                                 <Col>
-                                    <Form.Control as="textarea" name="content" rows={8} />
+                                    <Form.Control
+                                        as="textarea"
+                                        name="content"
+                                        rows={8}
+                                        onChange={this.changeHandler}
+                                    />
                                 </Col>
                             </Form.Group>
                         </Col>
