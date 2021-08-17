@@ -61,7 +61,7 @@ export class AccountList extends Component {
                                     </Row>
                                 </Card.Header>
                                 <Card.Body>
-                                    <StatusPill status={x.review} onClick={() => this.setState({ review: true })} />
+                                    <StatusPill status={x.status} onClick={() => this.setState({ review: true })} />
                                     <Card.Title>{x.name}</Card.Title>
                                     <div className="d-flex">
                                         <Card.Subtitle className="pb-2 text-info">

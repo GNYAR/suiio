@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { Row, Col, Modal, Form, Button } from 'react-bootstrap'
 
 export class ModalContent extends Component {
-
     updateStatus = (ID, status) => {
         fetch('http://localhost:4000/api/account/update/status', {
             method: 'POST',
@@ -13,6 +12,7 @@ export class ModalContent extends Component {
         }).then((resp) => {
             if (resp.status !== 200)
                 return alert(`${resp.status}　${resp.statusText}`)
+            window.location.reload()
         })
     }
 
@@ -59,18 +59,20 @@ export class ModalContent extends Component {
                     </Modal.Body>
                     {this.props.review ?
                         <Modal.Footer>
-                            <Button variant="success" onClick={() => {
-                                // eslint-disable-next-line default-case
-                                switch (this.props.account.review) {
-                                    case "0":
-                                        this.updateStatus(this.props.account.ID, 2)
-                                        break;
-                                    case "2":
-                                    case "3":
-                                        this.updateStatus(this.props.account.ID, 1)
-                                        break;
-                                }
-                            }}>
+                            <Button
+                                variant="success"
+                                onClick={() => {
+                                    // eslint-disable-next-line default-case
+                                    switch (this.props.account.status) {
+                                        case "0":
+                                            this.updateStatus(this.props.account.ID, 2)
+                                            break;
+                                        case "2":
+                                        case "3":
+                                            this.updateStatus(this.props.account.ID, 1)
+                                            break;
+                                    }
+                                }}>
                                 通過
                             </Button>
                             <Button variant="danger" onClick={() => {
