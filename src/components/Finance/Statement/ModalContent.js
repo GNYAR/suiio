@@ -29,15 +29,19 @@ export class ModalContent extends Component {
                 <Modal.Header closeButton>
                     <Modal.Title>
                         <strong>
-                            【110】大迎新 財務報表
+                            {this.props.statement.name}
                         </strong>
                     </Modal.Title>
-                    <span className="ml-5 bg-warning px-2 rounded">活動報表</span>
-                    <strong className="text-info ml-3">製表人：財務長</strong>
-                    <span className="text-muted ml-3">2021-10-25</span>
+                    {this.props.statement.category === '其他項目' ?
+                        <span className="ml-5 bg-primary text-white px-2 rounded">{new Date(this.props.statement.date).getMonth() + 1} 月財報</span>
+                        :
+                        <span className="ml-5 bg-warning px-2 rounded">{this.props.statement.category}</span>
+                    }
+                    <strong className="text-info ml-3">製表人：{this.props.statement.uploadBy}</strong>
+                    <span className="text-muted ml-3">{this.props.statement.date}</span>
                 </Modal.Header>
                 <Modal.Body>
-                    <StatementTable />
+                    <StatementTable accounts={this.props.accounts} category={this.props.statement.category} />
                 </Modal.Body>
                 {this.props.review ?
                     <Modal.Footer>

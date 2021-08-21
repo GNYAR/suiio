@@ -8,28 +8,28 @@ export class StatementList extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            conferences: [],
+            statements: [],
             selected: {},
-            content: {},
+            accounts: [],
             ContentShow: false,
             class: "",
             AddShow: false,
             review: false
         }
-        // this.update()
+        this.update()
     }
 
-    // update = () => {
-    //     fetch('http://localhost:4000/api/conference/fetch/all')
-    //         .then((res) => res.json())
-    //         .then((data) => this.setState({ conferences: data }))
-    // }
+    update = () => {
+        fetch('http://localhost:4000/api/statement/fetch/all')
+            .then((res) => res.json())
+            .then((data) => this.setState({ statements: data }))
+    }
 
-    // fetchContent = (id) => {
-    //     fetch(`http://localhost:4000/api/conference/fetch/content/${id}`)
-    //         .then((res) => res.json())
-    //         .then((data) => this.setState({ content: data[0] }))
-    // }
+    fetchContent = async (id) => {
+        await fetch(`http://localhost:4000/api/statement/fetch/content/${id}`)
+            .then((res) => res.json())
+            .then((data) => this.setState({ accounts: data }))
+    }
 
     render() {
         return (
@@ -54,59 +54,41 @@ export class StatementList extends Component {
                             </Dropdown.Menu>
                         </Dropdown>
                     </Col>
-                    <Col className="py-1" md="6" lg="4">
-                        <Card
-                            bg="dark"
-                            className="text-white"
-                            onClick={() => {
-                                this.setState({ selected: "s", ContentShow: true })
-                                // this.fetchContent(x.ID)
-                            }}
-                        >
-                            <Card.Header className="font-weight-bolder">
-                                <Row>
-                                    <Col><span className="px-2 rounded bg-warning text-dark">活動報表</span></Col>
-                                    <Col xs="auto" className="text-muted">2021-10-25</Col>
-                                </Row>
-                            </Card.Header>
-                            <Card.Body>
-                                <StatusPill status={0} onClick={() => this.setState({ review: true })} />
-                                <Card.Title>【110】大迎新 財務報表</Card.Title>
-                                <Card.Subtitle className="pb-2 text-info">
-                                    <div>製表人：財務長</div>
-                                </Card.Subtitle>
-                            </Card.Body>
-                        </Card>
-                    </Col>
-                    <Col className="py-1" md="6" lg="4">
-                        <Card
-                            bg="dark"
-                            className="text-white"
-                            onClick={() => {
-                                this.setState({ selected: "s", ContentShow: true })
-                                // this.fetchContent(x.ID)
-                            }}
-                        >
-                            <Card.Header className="font-weight-bolder">
-                                <Row>
-                                    <Col><span className="px-2 rounded bg-primary">每月報表</span></Col>
-                                    <Col xs="auto" className="text-muted">2021-10-5</Col>
-                                </Row>
-                            </Card.Header>
-                            <Card.Body>
-                                <StatusPill status={0} onClick={() => this.setState({ review: true })} />
-                                <Card.Title>【110】9 月份 財務報表</Card.Title>
-                                <Card.Subtitle className="pb-2 text-info">
-                                    <div>製表人：財務長</div>
-                                </Card.Subtitle>
-                            </Card.Body>
-                        </Card>
-                    </Col>
+                    {this.state.statements.map(x => (
+                        <Col className="py-1" md="6" lg="4">
+                            <Card
+                                bg="dark"
+                                className="text-white"
+                                onClick={async () => {
+                                    this.setState({ selected: x, ContentShow: true })
+                                    await this.fetchContent(x.ID)
+                                }}
+                            >
+                                <Card.Header className="font-weight-bolder">
+                                    <Row>
+                                        <Col>{x.category === '其他項目' ?
+                                            <span className="px-2 rounded bg-primary">{new Date(x.date).getMonth() + 1} 月財報</span>
+                                            :
+                                            <span className="px-2 rounded bg-warning text-dark">{x.category}</span>
+                                        }</Col>
+                                        <Col xs="auto" className="text-muted">{x.date}</Col>
+                                    </Row>
+                                </Card.Header>
+                                <Card.Body>
+                                    <StatusPill status={x.status} onClick={() => this.setState({ review: true })} />
+                                    <Card.Title>{x.name}</Card.Title>
+                                    <Card.Subtitle className="pb-2 text-info">
+                                        <div>製表人：{x.uploadBy}</div>
+                                    </Card.Subtitle>
+                                </Card.Body>
+                            </Card>
+                        </Col>
+                    ))}
                 </Row>
                 <ModalContent
                     show={this.state.ContentShow}
-                    conference={this.state.selected}
-                    content={this.state.content}
+                    statement={this.state.selected}
+                    accounts={this.state.accounts}
                     review={this.state.review}
                     onHide={() => this.setState({ ContentShow: false, review: false })}
                 />
