@@ -6,7 +6,7 @@ export class ModalAdd extends Component {
         super(props)
         this.state = {
             form: {
-                category: '1',
+                category: '0',
                 name: '',
                 date: '',
                 content: '',
@@ -90,7 +90,7 @@ export class ModalAdd extends Component {
                                         name="category"
                                         onChange={this.changeHandler}
                                     >
-                                        <option value="1">例行會議</option>
+                                        <option value="0">例行會議</option>
                                         {this.state.categories.map((x) => (
                                             <option value={x.ID}>
                                                 {x.name}

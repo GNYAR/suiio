@@ -6,11 +6,11 @@ export class ModalAdd extends Component {
         super(props)
         this.state = {
             form: {
-                category: '',
+                category: '0',
                 name: '',
                 date: '',
                 content: '',
-                cost: '',
+                amount: '',
                 uploadBy: '財務長'
             },
             type: -1,
@@ -31,7 +31,7 @@ export class ModalAdd extends Component {
 
     add = (event) => {
         event.preventDefault()
-        this.state.form.cost *= this.state.type
+        this.state.form.amount *= this.state.type
         fetch('http://localhost:4000/api/account/add', {
             method: 'POST',
             headers: new Headers({
@@ -134,7 +134,7 @@ export class ModalAdd extends Component {
                                 </InputGroup.Prepend>
                                 <Form.Control
                                     type="number"
-                                    name="cost"
+                                    name="amount"
                                     onChange={this.changeHandler}
                                 />
                             </InputGroup>

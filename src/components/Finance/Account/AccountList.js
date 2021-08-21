@@ -67,7 +67,7 @@ export class AccountList extends Component {
                                         <Card.Subtitle className="pb-2 text-info">
                                             <div>申請人：{x.uploadBy}</div>
                                         </Card.Subtitle>
-                                        <h4 className={`ml-auto ${x.cost > 0 ? "text-success" : "text-danger"}`}><b>{x.cost}</b></h4>
+                                        <h4 className={`ml-auto ${x.amount > 0 ? "text-success" : "text-danger"}`}><b>{x.amount}</b></h4>
                                     </div>
                                 </Card.Body>
                             </Card>

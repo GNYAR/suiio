@@ -42,8 +42,8 @@ export class ModalContent extends Component {
                             </h6>
                         </Col>
                         <Col xs="auto" className="ml-auto">
-                            <h4 className={`ml-auto ${this.props.account.cost > 0 ? "text-success" : "text-danger"}`}>
-                                <b>{this.props.account.cost}</b>
+                            <h4 className={`ml-auto ${this.props.account.amount > 0 ? "text-success" : "text-danger"}`}>
+                                <b>{this.props.account.amount}</b>
                             </h4>
                         </Col>
                         {this.props.account.content ? (
