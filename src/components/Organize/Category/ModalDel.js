@@ -4,7 +4,7 @@ import { Button, Form, Modal } from 'react-bootstrap'
 export class ModalDel extends Component {
     delete = (event) => {
         event.preventDefault()
-        fetch('http://localhost:4000/api/category/delete', {
+        fetch('http://suiio.nutc.edu.tw:2541/api/category/delete', {
             method: 'POST',
             headers: new Headers({
                 'Content-Type': 'application/json',
@@ -12,7 +12,7 @@ export class ModalDel extends Component {
             body: JSON.stringify(this.props.category),
         }).then((resp) => {
             console.log(resp)
-            if (resp.status !== 200)
+            if (parseInt(resp.status / 100) === '2')
                 return alert(`${resp.status}　${resp.statusText}`)
             this.props.onHide()
         })

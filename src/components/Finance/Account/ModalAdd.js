@@ -24,7 +24,7 @@ export class ModalAdd extends Component {
     }
 
     setCategories = () => {
-        fetch('http://localhost:4000/api/category/fetch/status/1')
+        fetch('http://suiio.nutc.edu.tw:2541/api/category/fetch/status/1')
             .then((res) => res.json())
             .then((data) => this.setState({ categories: data }))
     }
@@ -32,14 +32,14 @@ export class ModalAdd extends Component {
     add = (event) => {
         event.preventDefault()
         this.state.form.amount *= this.state.type
-        fetch('http://localhost:4000/api/account/add', {
+        fetch('http://suiio.nutc.edu.tw:2541/api/account/add', {
             method: 'POST',
             headers: new Headers({
                 'Content-Type': 'application/json',
             }),
             body: JSON.stringify(this.state.form),
         }).then((resp) => {
-            if (resp.status !== 200)
+            if (parseInt(resp.status / 100) === '2')
                 return alert(`${resp.status}　${resp.statusText}`)
             window.location.reload()
         })

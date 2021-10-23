@@ -19,13 +19,13 @@ export class AccountList extends Component {
     }
 
     update = () => {
-        fetch('http://localhost:4000/api/account/fetch/all')
+        fetch('http://suiio.nutc.edu.tw:2541/api/account/fetch/all')
             .then((res) => res.json())
             .then((data) => this.setState({ accounts: data }))
     }
 
     fetchContent = async (id) => {
-        await fetch(`http://localhost:4000/api/account/fetch/id/${id}`)
+        await fetch(`http://suiio.nutc.edu.tw:2541/api/account/fetch/id/${id}`)
             .then((res) => res.json())
             .then((data) => this.setState({ selected: data[0] }))
     }
@@ -44,7 +44,8 @@ export class AccountList extends Component {
                             提交申請
                         </Button>
                     </Col>
-                    {this.state.accounts.map(x => (
+                    {this.state.accounts?.result ??
+                    this.state.accounts?.map(x => (
                         <Col className="py-1" md="6" lg="4">
                             <Card
                                 bg="dark"

@@ -20,13 +20,13 @@ export class StatementList extends Component {
     }
 
     update = () => {
-        fetch('http://localhost:4000/api/statement/fetch/all')
+        fetch('http://suiio.nutc.edu.tw:2541/api/statement/fetch/all')
             .then((res) => res.json())
             .then((data) => this.setState({ statements: data }))
     }
 
     fetchContent = async (id) => {
-        await fetch(`http://localhost:4000/api/statement/fetch/content/${id}`)
+        await fetch(`http://suiio.nutc.edu.tw:2541/api/statement/fetch/content/${id}`)
             .then((res) => res.json())
             .then((data) => this.setState({ accounts: data }))
     }

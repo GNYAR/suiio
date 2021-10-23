@@ -20,13 +20,13 @@ export class CategoryList extends Component {
             DeleteShow: false,
             newCate: '',
         }
-        fetch('http://localhost:4000/api/category/fetch/all')
+        fetch('http://suiio.nutc.edu.tw:2541/api/category/fetch/all')
             .then((res) => res.json())
             .then((data) => this.setState({ categories: data }))
     }
 
     update = () => {
-        fetch('http://localhost:4000/api/category/fetch/all')
+        fetch('http://suiio.nutc.edu.tw:2541/api/category/fetch/all')
             .then((res) => res.json())
             .then((data) => this.setState({ categories: data }))
         this.setState({ newCate: '' })
@@ -34,14 +34,14 @@ export class CategoryList extends Component {
 
     add = (event) => {
         event.preventDefault()
-        fetch('http://localhost:4000/api/category/add', {
+        fetch('http://suiio.nutc.edu.tw:2541/api/category/add', {
             method: 'POST',
             headers: new Headers({
                 'Content-Type': 'application/json',
             }),
             body: JSON.stringify({ name: this.state.newCate }),
         }).then((resp) => {
-            if (resp.status !== 200)
+            if (parseInt(resp.status / 100) === '2')
                 return alert(`${resp.status}　${resp.statusText}`)
             this.update()
         })
@@ -52,14 +52,14 @@ export class CategoryList extends Component {
             ID: cate.ID,
             status: cate.status ? 0 : 1,
         }
-        fetch('http://localhost:4000/api/category/update/status', {
+        fetch('http://suiio.nutc.edu.tw:2541/api/category/update/status', {
             method: 'POST',
             headers: new Headers({
                 'Content-Type': 'application/json',
             }),
             body: JSON.stringify(data),
         }).then((resp) => {
-            if (resp.status !== 200)
+            if (parseInt(resp.status / 100) === '2')
                 return alert(`${resp.status}　${resp.statusText}`)
             this.update()
         })

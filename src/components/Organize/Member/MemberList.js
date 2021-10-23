@@ -19,13 +19,13 @@ export class MemberList extends Component {
             DeleteShow: false,
             newSID: '',
         }
-        fetch('http://localhost:4000/api/member/fetch/all')
+        fetch('http://suiio.nutc.edu.tw:2541/api/member/fetch/all')
             .then((res) => res.json())
             .then((data) => this.setState({ members: data }))
     }
 
     update = () => {
-        fetch('http://localhost:4000/api/member/fetch/all')
+        fetch('http://suiio.nutc.edu.tw:2541/api/member/fetch/all')
             .then((res) => res.json())
             .then((data) => this.setState({ members: data }))
         this.setState({ newSID: '' })
@@ -33,14 +33,14 @@ export class MemberList extends Component {
 
     add = (event) => {
         event.preventDefault()
-        fetch('http://localhost:4000/api/member/add', {
+        fetch('http://suiio.nutc.edu.tw:2541/api/member/add', {
             method: 'POST',
             headers: new Headers({
                 'Content-Type': 'application/json',
             }),
             body: JSON.stringify({ sID: this.state.newSID }),
         }).then((resp) => {
-            if (resp.status !== 200)
+            if (parseInt(resp.status / 100) === '2')
                 return alert(`${resp.status}　${resp.statusText}`)
             this.update()
         })

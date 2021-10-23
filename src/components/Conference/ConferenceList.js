@@ -20,13 +20,13 @@ export class ConferenceList extends Component {
     }
 
     update = () => {
-        fetch('http://localhost:4000/api/conference/fetch/all')
+        fetch('http://suiio.nutc.edu.tw:2541/api/conference/fetch/all')
             .then((res) => res.json())
             .then((data) => this.setState({ conferences: data }))
     }
 
     fetchContent = async (id) => {
-        await fetch(`http://localhost:4000/api/conference/fetch/content/${id}`)
+        await fetch(`http://suiio.nutc.edu.tw:2541/api/conference/fetch/content/${id}`)
             .then((res) => res.json())
             .then((data) => this.setState({ content: data[0] }))
     }

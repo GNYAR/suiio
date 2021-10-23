@@ -15,7 +15,7 @@ export class ModalEdit extends Component {
 
     edit = (event) => {
         event.preventDefault()
-        fetch('http://localhost:4000/api/officers/update/officer', {
+        fetch('http://suiio.nutc.edu.tw:2541/api/officers/update/officer', {
             method: 'POST',
             headers: new Headers({
                 'Content-Type': 'application/json',
@@ -25,7 +25,7 @@ export class ModalEdit extends Component {
                 position: this.props.officer.position,
             }),
         }).then((resp) => {
-            if (resp.status !== 200)
+            if (parseInt(resp.status / 100) === '2')
                 return alert(`${resp.status}　${resp.statusText}`)
             window.location.reload()
         })

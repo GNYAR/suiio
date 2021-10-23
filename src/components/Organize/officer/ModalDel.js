@@ -4,14 +4,14 @@ import { Button, Form, Modal } from 'react-bootstrap'
 export class ModalDel extends Component {
     delete = (event) => {
         event.preventDefault()
-        fetch('http://localhost:4000/api/officers/delete', {
+        fetch('http://suiio.nutc.edu.tw:2541/api/officers/delete', {
             method: 'POST',
             headers: new Headers({
                 'Content-Type': 'application/json',
             }),
             body: JSON.stringify(this.props.officer),
         }).then((resp) => {
-            if (resp.status !== 200)
+            if (parseInt(resp.status / 100) === '2')
                 return alert(`${resp.status}　${resp.statusText}`)
             window.location.reload()
         })

@@ -26,7 +26,7 @@ export class ModalAdd extends Component {
     }
 
     setOfficers = () => {
-        fetch('http://localhost:4000/api/officers/fetch/all')
+        fetch('http://suiio.nutc.edu.tw:2541/api/officers/fetch/all')
             .then((res) => res.json())
             .then((data) => {
                 this.setState({ officers: data })
@@ -35,21 +35,21 @@ export class ModalAdd extends Component {
     }
 
     setCategories = () => {
-        fetch('http://localhost:4000/api/category/fetch/status/1')
+        fetch('http://suiio.nutc.edu.tw:2541/api/category/fetch/status/1')
             .then((res) => res.json())
             .then((data) => this.setState({ categories: data }))
     }
 
     add = (event) => {
         event.preventDefault()
-        fetch('http://localhost:4000/api/conference/add', {
+        fetch('http://suiio.nutc.edu.tw:2541/api/conference/add', {
             method: 'POST',
             headers: new Headers({
                 'Content-Type': 'application/json',
             }),
             body: JSON.stringify(this.state.form),
         }).then((resp) => {
-            if (resp.status !== 200)
+            if (parseInt(resp.status / 100) === '2')
                 return alert(`${resp.status}　${resp.statusText}`)
             window.location.reload()
         })

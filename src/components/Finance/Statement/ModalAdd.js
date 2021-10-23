@@ -28,14 +28,14 @@ export class ModalAdd extends Component {
     }
 
     // setOfficers = () => {
-    //     fetch('http://localhost:4000/api/officers/fetch/all')
+    //     fetch('http://suiio.nutc.edu.tw:2541/api/officers/fetch/all')
     //         .then((res) => res.json())
     //         .then((data) => this.setState({ officers: data }))
     // }
 
     // add = (event) => {
     //     event.preventDefault()
-    //     fetch('http://localhost:4000/api/officers/add', {
+    //     fetch('http://suiio.nutc.edu.tw:2541/api/officers/add', {
     //         method: 'POST',
     //         headers: new Headers({
     //             'Content-Type': 'application/json',
