@@ -28,18 +28,18 @@ export const NavigationBar = () => {
                         >
                             會議管理
                         </Nav.Link>
-                        <Nav.Link href="/contact" className={active.contact}>
+                        {/* <Nav.Link href="/contact" className={active.contact}>
                             留言管理
-                        </Nav.Link>
+                        </Nav.Link> */}
                         <Nav.Link
                             href="/organize"
                             className={active.organize}
                         >
                             組織管理
                         </Nav.Link>
-                        <Nav.Link href="/account" className={active.account}>
+                        {/* <Nav.Link href="/account" className={active.account}>
                             帳號管理
-                        </Nav.Link>
+                        </Nav.Link> */}
                     </Nav>
                 </Navbar.Collapse>
             </Container>
