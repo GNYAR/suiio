@@ -34,7 +34,7 @@ export class ConferenceList extends Component {
     render() {
         return (
             <>
-                <Row>
+                <Row noGutters>
                     <Col xs="12" className="py-3">
                         <Button
                             variant="info"
@@ -46,7 +46,7 @@ export class ConferenceList extends Component {
                         </Button>
                     </Col>
                     {this.state.conferences.map((x) => (
-                        <Col className="py-1" md="6" lg="4">
+                        <Col className="px-1 py-2" md="6" lg="4">
                             <Card
                                 bg="dark"
                                 className="text-white"

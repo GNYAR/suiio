@@ -24,7 +24,7 @@ export const OfficerList = (props) => {
                     </Button>
                 </Col>
                 {props.officers.map((x) => (
-                    <Col className="py-1" sm="6" lg="4">
+                    <Col className="py-3" sm="6" lg="4">
                         <Card body bg="dark" className="text-white">
                             <ButtonGroup className="float-right">
                                 <Button

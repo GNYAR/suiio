@@ -39,7 +39,7 @@ export class StatementList extends Component {
     render() {
         return (
             <>
-                <Row>
+                <Row noGutters>
                     <Col xs="12" className="py-3">
                         <Dropdown className="float-right" alignRight>
                             <Dropdown.Toggle variant="info" id="dropdown-basic">
@@ -61,7 +61,7 @@ export class StatementList extends Component {
                         </Dropdown>
                     </Col>
                     {this.state.statements[1] ? this.state.statements.map(x => x.ID ?
-                        (<Col className="py-1" md="6" lg="4">
+                        (<Col className="px-1 py-2" md="6" lg="4">
                             <Card
                                 bg="dark"
                                 className="text-white"

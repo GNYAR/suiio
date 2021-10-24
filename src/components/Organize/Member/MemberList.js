@@ -74,7 +74,7 @@ export class MemberList extends Component {
                         </InputGroup>
                     </Col>
                     {this.state.members.map((x) => (
-                        <Col className="py-1" sm="6" lg="3">
+                        <Col className="py-3" sm="6" lg="3">
                             <Card body bg="dark" className="text-white">
                                 <Card.Title className="my-auto" as={Row}>
                                     <h5 className="pl-3">{x.sID}</h5>
