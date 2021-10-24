@@ -29,7 +29,6 @@ export class ModalContent extends Component {
                 <Modal.Header closeButton>
                     <Modal.Title>
                         <strong>
-                            {this.props.statement.ID}
                             {this.props.statement.name}
                         </strong>
                     </Modal.Title>
