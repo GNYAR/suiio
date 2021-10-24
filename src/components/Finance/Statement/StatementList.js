@@ -8,9 +8,9 @@ export class StatementList extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            statement: {},
             statements: [],
-            selected: {},
-            accounts: [],
+            selected: "",
             ContentShow: false,
             class: "",
             AddShow: false,
@@ -25,10 +25,15 @@ export class StatementList extends Component {
             .then((data) => this.setState({ statements: data }))
     }
 
-    fetchContent = async (id) => {
-        await fetch(`http://suiio.nutc.edu.tw:2541/api/statement/fetch/content/${id}`)
+    setStatement (id) {
+        fetch(`http://suiio.nutc.edu.tw:2541/api/statement/fetch/id/${id}`)
             .then((res) => res.json())
-            .then((data) => this.setState({ accounts: data }))
+            .then(statement => this.setState({statement}))
+    }
+
+    onHide = (show) => {
+        this.setState({ [show]: false, review: false })
+        this.update()
     }
 
     render() {
@@ -47,6 +52,7 @@ export class StatementList extends Component {
                                     每月報表
                                 </Dropdown.Item>
                                 <Dropdown.Item
+                                    disabled
                                     onClick={() => this.setState({ class: "活動報表", AddShow: true })}
                                 >
                                     活動報表
@@ -54,20 +60,20 @@ export class StatementList extends Component {
                             </Dropdown.Menu>
                         </Dropdown>
                     </Col>
-                    {this.state.statements.map(x => (
-                        <Col className="py-1" md="6" lg="4">
+                    {this.state.statements[1] ? this.state.statements.map(x => x.ID ?
+                        (<Col className="py-1" md="6" lg="4">
                             <Card
                                 bg="dark"
                                 className="text-white"
                                 onClick={async () => {
-                                    this.setState({ selected: x, ContentShow: true })
-                                    await this.fetchContent(x.ID)
+                                    this.setStatement(x.ID)
+                                    this.setState({ ContentShow: true })
                                 }}
                             >
                                 <Card.Header className="font-weight-bolder">
                                     <Row>
                                         <Col>{x.category === '其他項目' ?
-                                            <span className="px-2 rounded bg-primary">{new Date(x.date).getMonth() + 1} 月財報</span>
+                                            <span className="px-2 rounded bg-primary">每月財報</span>
                                             :
                                             <span className="px-2 rounded bg-warning text-dark">{x.category}</span>
                                         }</Col>
@@ -82,17 +88,19 @@ export class StatementList extends Component {
                                     </Card.Subtitle>
                                 </Card.Body>
                             </Card>
-                        </Col>
-                    ))}
+                        </Col>) : '') : "No Data"}
                 </Row>
                 <ModalContent
                     show={this.state.ContentShow}
-                    statement={this.state.selected}
-                    accounts={this.state.accounts}
+                    statement={this.state.statement}
                     review={this.state.review}
-                    onHide={() => this.setState({ ContentShow: false, review: false })}
+                    onHide={() => this.onHide("ContentShow")}
                 />
-                <ModalAdd class={this.state.class} show={this.state.AddShow} onHide={() => this.setState({ AddShow: false })} />
+                <ModalAdd
+                    class={this.state.class}
+                    show={this.state.AddShow}
+                    onHide={() => this.onHide("AddShow")}
+                />
             </>
         )
     }

@@ -16,7 +16,5 @@ export const Finance = () => (
         <Tab eventKey="statement" title="財務報表" tabClassName="text-white">
             <Statement />
         </Tab>
-        <Tab eventKey="budget" title="預算列表" tabClassName="text-white">
-        </Tab>
     </Tabs>
 )

@@ -24,6 +24,11 @@ export class AccountList extends Component {
             .then((data) => this.setState({ accounts: data }))
     }
 
+    onHide = (show) => {
+        this.setState({ [show]: false, review: false })
+        this.update()
+    }
+
     fetchContent = async (id) => {
         await fetch(`http://suiio.nutc.edu.tw:2541/api/account/fetch/id/${id}`)
             .then((res) => res.json())
@@ -79,12 +84,12 @@ export class AccountList extends Component {
                     show={this.state.ContentShow}
                     account={this.state.selected}
                     review={this.state.review}
-                    onHide={() => {
-                        this.setState({ ContentShow: false, review: false })
-                        this.update()
-                    }}
+                    onHide={() => this.onHide("ContentShow")}
                 />
-                <ModalAdd show={this.state.AddShow} onHide={() => this.setState({ AddShow: false })} />
+                <ModalAdd
+                    show={this.state.AddShow}
+                    onHide={() => this.onHide("AddShow")}
+                />
             </>
         )
     }

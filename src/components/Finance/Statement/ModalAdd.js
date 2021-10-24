@@ -6,44 +6,51 @@ export class ModalAdd extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            month: "",
-            category: "",
-            form: {
-                category: '',
-                name: '',
-                date: '',
-                content: '',
-                host: '',
-                recorder: '',
-                absentees: '',
-                attendees: ''
-            },
-            officers: []
+            name: "",
+            categories: [],
+            accounts: []
         }
-        // this.setOfficers()
+        this.getCategories()
+    }
+
+    getCategories = () => {
+        fetch('http://suiio.nutc.edu.tw:2541/api/category/fetch/all')
+            .then((res) => res.json())
+            .then((data) => this.setState({ categories: data }))
+    }
+
+    setAccounts = (month) => {
+        fetch(`http://suiio.nutc.edu.tw:2541/api/account/fetch/date/${month}`)
+            .then((res) => res.json())
+            .then(data => this.setState({accounts: data}))
     }
 
     changeHandler = (event) => {
-        this.setState({ [event.target.name]: event.target.value })
+        if (event.target.name === 'month')
+            this.setAccounts(event.target.value)
+        else
+            this.setState({[event.target.name]: event.target.value})
     }
 
-    // setOfficers = () => {
-    //     fetch('http://suiio.nutc.edu.tw:2541/api/officers/fetch/all')
-    //         .then((res) => res.json())
-    //         .then((data) => this.setState({ officers: data }))
-    // }
-
-    // add = (event) => {
-    //     event.preventDefault()
-    //     fetch('http://suiio.nutc.edu.tw:2541/api/officers/add', {
-    //         method: 'POST',
-    //         headers: new Headers({
-    //             'Content-Type': 'application/json',
-    //         }),
-    //         body: JSON.stringify(this.state.form),
-    //     })
-    //     window.location.reload()
-    // }
+    add = (event) => {
+        event.preventDefault()
+        fetch('http://suiio.nutc.edu.tw:2541/api/statement/add/', {
+            method: 'POST',
+            headers: new Headers({
+                'Content-Type': 'application/json',
+            }),
+            body: JSON.stringify({
+                name: this.state.name,
+                category: 0,
+                uploadBy: '財務長',
+                content: this.state.accounts.reduce((arr, x) => [...arr, x.ID], [])
+            }),
+        }).then((resp) => {
+            if (parseInt(resp.status / 100) === '2')
+                return alert(`${resp.status}　${resp.statusText}`)
+            this.props.onHide()
+        })
+    }
 
     render() {
         return (
@@ -70,6 +77,7 @@ export class ModalAdd extends Component {
                                         <Form.Control
                                             type="text"
                                             name="name"
+                                            onChange={this.changeHandler}
                                         />
                                     </Col>
                                 </Form.Group>
@@ -98,18 +106,23 @@ export class ModalAdd extends Component {
                                                 name="category"
                                                 onChange={this.changeHandler}
                                             >
-                                                <option value="0" selected disabled>請選擇活動 ...</option>
-                                                <option value="1">迎新茶會</option>
-                                                <option value="2">大迎新</option>
-                                                <option value="3">聖誕晚會</option>
+                                                <option selected disabled>請選擇活動 ...</option>
+                                                {this.state.categories.map(x => {
+                                                    return <option value={x.ID}>{x.name}</option>
+                                                })}
                                             </Form.Control>
                                         </Col>
                                     </Form.Group>
                                 )}
                             </Col>
                         </Row>
-                        {(this.state.month || this.state.category ?
-                            <StatementTable /> :
+                        {(this.state.accounts.length ?
+                            <StatementTable
+                                statement={{
+                                    accounts: this.state.accounts,
+                                    category: '其他項目'
+                                }}
+                            /> :
                             <h3 className="py-5 text-center">
                                 <span className="px-5 py-2 rounded bg-secondary text-white">No Data</span>
                             </h3>
@@ -120,7 +133,7 @@ export class ModalAdd extends Component {
                             新增
                         </Button>
                         <Button variant="light" onClick={() => {
-                            this.setState({ month: "", category: "" })
+                            this.setState({ type: "" })
                             this.props.onHide()
                         }}>
                             取消

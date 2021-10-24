@@ -41,7 +41,7 @@ export class ModalAdd extends Component {
         }).then((resp) => {
             if (parseInt(resp.status / 100) === '2')
                 return alert(`${resp.status}　${resp.statusText}`)
-            window.location.reload()
+            this.props.onHide()
         })
     }
 

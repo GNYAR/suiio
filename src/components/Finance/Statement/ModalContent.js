@@ -3,19 +3,19 @@ import { Modal, Button } from 'react-bootstrap'
 import { StatementTable } from './StatementTable'
 
 export class ModalContent extends Component {
-
     updateStatus = (id, status) => {
-        // fetch('http://suiio.nutc.edu.tw:2541/api/conference/update/status', {
-        //     method: 'POST',
-        //     headers: new Headers({
-        //         'Content-Type': 'application/json',
-        //     }),
-        //     body: JSON.stringify({ id, status }),
-        // }).then((resp) => {
-        //     if (parseInt(resp.status / 100) === '2')
-        //         return alert(`${resp.status}　${resp.statusText}`)
-        //     window.location.reload()
-        // })
+        console.log(JSON.stringify({ id, status }))
+        fetch('http://suiio.nutc.edu.tw:2541/api/statement/update/status', {
+            method: 'POST',
+            headers: new Headers({
+                'Content-Type': 'application/json',
+            }),
+            body: JSON.stringify({ ID: id, status }),
+        }).then((resp) => {
+            if (parseInt(resp.status / 100) === '2')
+                return alert(`${resp.status}　${resp.statusText}`)
+            // this.props.onHide()
+        })
     }
 
     render() {
@@ -29,11 +29,12 @@ export class ModalContent extends Component {
                 <Modal.Header closeButton>
                     <Modal.Title>
                         <strong>
+                            {this.props.statement.ID}
                             {this.props.statement.name}
                         </strong>
                     </Modal.Title>
                     {this.props.statement.category === '其他項目' ?
-                        <span className="ml-5 bg-primary text-white px-2 rounded">{new Date(this.props.statement.date).getMonth() + 1} 月財報</span>
+                        <span className="ml-5 bg-primary text-white px-2 rounded">每月財報</span>
                         :
                         <span className="ml-5 bg-warning px-2 rounded">{this.props.statement.category}</span>
                     }
@@ -41,26 +42,26 @@ export class ModalContent extends Component {
                     <span className="text-muted ml-3">{this.props.statement.date}</span>
                 </Modal.Header>
                 <Modal.Body>
-                    <StatementTable accounts={this.props.accounts} category={this.props.statement.category} />
+                    <StatementTable accounts={this.props.statement.accounts} statement={this.props.statement} />
                 </Modal.Body>
                 {this.props.review ?
                     <Modal.Footer>
                         <Button variant="success" onClick={() => {
                             // eslint-disable-next-line default-case
-                            switch (this.props.conference.status) {
+                            switch (this.props.statement.status) {
                                 case "0":
-                                    this.updateStatus(this.props.conference.ID, 2)
+                                    this.updateStatus(this.props.statement.ID, 2)
                                     break;
                                 case "2":
                                 case "3":
-                                    this.updateStatus(this.props.conference.ID, 1)
+                                    this.updateStatus(this.props.statement.ID, 1)
                                     break;
                             }
                         }}>
                             通過
                         </Button>
                         <Button variant="danger" onClick={() => {
-                            this.updateStatus(this.props.conference.ID, 4)
+                            this.updateStatus(this.props.statement.ID, 4)
                         }}>
                             駁回
                         </Button>

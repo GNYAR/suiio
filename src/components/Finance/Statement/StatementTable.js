@@ -19,7 +19,7 @@ export const StatementTable = (props) => {
                     </th></tr>
                 </thead>
                 <tbody>
-                    {props.accounts.map(x => {
+                    {props.statement?.accounts?.length ? props.statement.accounts.map(x => {
                         const date = new Date(x.date)
                         const year = date.getFullYear()
                         const month = date.getMonth() + 1
@@ -52,7 +52,7 @@ export const StatementTable = (props) => {
                                 </Row>
                             </td></tr>
                         </>)
-                    })}
+                    }) : ''}
                     <tr><th className="py-2 text-center bg-info">
                         <Row>
                             <Col>合　　　計</Col>
@@ -69,14 +69,14 @@ export const StatementTable = (props) => {
                             <Col xs="auto">本期淨{(income - cost) < 0 ? '損' : '利'}：</Col>
                             <Col><b>{income - cost}</b></Col>
                         </Row>
-                        {props.category === '其他項目' ? <>
+                        {props.statement.category === '其他項目' ? <>
                             <Row className="text-right my-2">
                                 <Col xs="auto">上期餘額：</Col>
-                                <Col><b>57,200</b></Col>
+                                <Col><b>0</b></Col>
                             </Row>
                             <Row className="text-right my-2">
                                 <Col xs="auto">本期餘額：</Col>
-                                <Col><b>54,110</b></Col>
+                                <Col><b>{props.statement.balance ?? 0}</b></Col>
                             </Row>
                         </> : ''}
                     </div>
