@@ -46,7 +46,8 @@ export class ModalContent extends Component {
                             <h6>
                                 出席幹部：
                                 <strong className="text-info">
-                                    會長, 副會長, 活動長, 器材長
+                                    { this.props?.content?.attendees?.length ?
+                                        this.props.content.attendees.join(', ') : '無' }
                                 </strong>
                             </h6>
                         </Col>
@@ -54,7 +55,8 @@ export class ModalContent extends Component {
                             <h6>
                                 缺席幹部：
                                 <strong className="text-danger">
-                                    體育長, 資訊長
+                                    { this.props?.content?.absentees?.length ?
+                                        this.props.content.absentees.join(', ') : '無' }
                                 </strong>
                             </h6>
                         </Col>
