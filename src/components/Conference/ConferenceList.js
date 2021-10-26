@@ -45,7 +45,7 @@ export class ConferenceList extends Component {
                             撰寫紀錄
                         </Button>
                     </Col>
-                    {this.state.conferences.map((x) => (
+                    {this.state.conferences.length ? this.state.conferences.map((x) => (
                         <Col className="px-1 py-2" md="6" lg="4">
                             <Card
                                 bg="dark"
@@ -83,7 +83,7 @@ export class ConferenceList extends Component {
                                 </Card.Body>
                             </Card>
                         </Col>
-                    ))}
+                    )) : 'No Data'}
                 </Row>
                 <ModalContent
                     show={this.state.ContentShow}
