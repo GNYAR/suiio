@@ -18,7 +18,6 @@ export class StatementList extends Component {
     super(props)
     this.state = {
       statement: {},
-      statements: [],
       selected: '',
       ContentShow: false,
       class: '',
@@ -34,7 +33,6 @@ export class StatementList extends Component {
     fetch('http://suiio.nutc.edu.tw:2541/api/statement/fetch/all')
       .then((res) => res.json())
       .then((data) => {
-        this.setState({ statements: data })
         let cnt = 0
         const pages = data.reduce(
           (arr, v, k) => {
