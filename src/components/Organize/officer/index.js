@@ -3,22 +3,22 @@ import { Permission } from './Permission'
 import { OfficerList } from './OfficerList'
 
 export class Officer extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            officers: [],
-        }
-        fetch('http://suiio.nutc.edu.tw:2541/api/officers/fetch/all')
-            .then((res) => res.json())
-            .then((data) => this.setState({ officers: data }))
+  constructor(props) {
+    super(props)
+    this.state = {
+      officers: [],
     }
+    fetch('http://suiio.nutc.edu.tw:2541/api/officers/fetch/all')
+      .then((res) => res.json())
+      .then((data) => this.setState({ officers: data }))
+  }
 
-    render() {
-        return (
-            <>
-                <OfficerList officers={this.state.officers} />
-                <Permission officers={this.state.officers} />
-            </>
-        )
-    }
+  render() {
+    return (
+      <>
+        <OfficerList officers={this.state.officers} />
+        <Permission officers={this.state.officers} />
+      </>
+    )
+  }
 }
