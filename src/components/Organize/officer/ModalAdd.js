@@ -48,6 +48,7 @@ export class ModalAdd extends Component {
                   type="text"
                   name="position"
                   onChange={this.changeHandler}
+                  required
                 />
               </Col>
               <Col sm={{ offset: 3 }}>
@@ -63,6 +64,7 @@ export class ModalAdd extends Component {
                   type="number"
                   name="sID"
                   onChange={this.changeHandler}
+                  required
                 />
               </Col>
               <Col sm={{ offset: 3 }}>

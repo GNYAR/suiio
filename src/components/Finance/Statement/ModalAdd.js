@@ -80,6 +80,7 @@ export class ModalAdd extends Component {
                       type="text"
                       name="name"
                       onChange={this.changeHandler}
+                      required
                     />
                   </Col>
                 </Form.Group>
@@ -95,6 +96,7 @@ export class ModalAdd extends Component {
                         type="month"
                         name="month"
                         onChange={this.changeHandler}
+                        required
                       />
                     </Col>
                   </Form.Group>
@@ -108,6 +110,7 @@ export class ModalAdd extends Component {
                         as="select"
                         name="category"
                         onChange={this.changeHandler}
+                        required
                       >
                         <option selected disabled>
                           請選擇活動 ...

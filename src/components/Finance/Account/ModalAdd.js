@@ -65,6 +65,7 @@ export class ModalAdd extends Component {
                     type="text"
                     name="name"
                     onChange={this.changeHandler}
+                    required
                   />
                 </Col>
               </Form.Group>
@@ -79,6 +80,7 @@ export class ModalAdd extends Component {
                     as="select"
                     name="category"
                     onChange={this.changeHandler}
+                    required
                   >
                     <option value="1">一般開銷</option>
                     {this.state.categories.map((x) => (
@@ -98,6 +100,7 @@ export class ModalAdd extends Component {
                     type="date"
                     name="date"
                     onChange={this.changeHandler}
+                    required
                   />
                 </Col>
               </Form.Group>
@@ -132,6 +135,7 @@ export class ModalAdd extends Component {
                   type="number"
                   name="amount"
                   onChange={this.changeHandler}
+                  required
                 />
               </InputGroup>
             </Col>

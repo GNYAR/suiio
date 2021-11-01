@@ -51,6 +51,7 @@ export class ModalEdit extends Component {
                   readOnly
                   defaultValue={this.props.officer.position}
                   className="font-weight-bold"
+                  required
                 />
               </Col>
             </Form.Group>
@@ -64,6 +65,7 @@ export class ModalEdit extends Component {
                   defaultValue={this.props.officer.sID}
                   name="sID"
                   onChange={this.changeHandler}
+                  required
                 />
               </Col>
               <Col sm={{ offset: 3 }}>

@@ -75,6 +75,7 @@ export class ModalAdd extends Component {
                     type="text"
                     name="name"
                     onChange={this.changeHandler}
+                    required
                   />
                 </Col>
               </Form.Group>
@@ -89,6 +90,7 @@ export class ModalAdd extends Component {
                     as="select"
                     name="category"
                     onChange={this.changeHandler}
+                    required
                   >
                     <option value="0">例行會議</option>
                     {this.state.categories.map((x) => (
@@ -108,6 +110,7 @@ export class ModalAdd extends Component {
                     type="date"
                     name="date"
                     onChange={this.changeHandler}
+                    required
                   />
                 </Col>
               </Form.Group>
@@ -122,6 +125,7 @@ export class ModalAdd extends Component {
                     as="select"
                     name="host"
                     onChange={this.changeHandler}
+                    required
                   >
                     {this.state.officers.map((x) => {
                       if (x.position === '會長') {
@@ -179,6 +183,7 @@ export class ModalAdd extends Component {
                     name="content"
                     rows={10}
                     onChange={this.changeHandler}
+                    required
                   />
                 </Col>
               </Form.Group>
