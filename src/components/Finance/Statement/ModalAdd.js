@@ -22,7 +22,7 @@ export class ModalAdd extends Component {
   setAccounts = (month) => {
     fetch(`http://suiio.nutc.edu.tw:2541/api/account/fetch/date/${month}`)
       .then((res) => res.json())
-      .then((data) => this.setState({ accounts: data }))
+      .then((data) => this.setState({ accounts: data?.length ? data : [] }))
   }
 
   changeHandler = (event) => {
