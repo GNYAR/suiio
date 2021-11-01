@@ -128,6 +128,14 @@ export const StatementTable = (props) => {
               income - cost < 0 ? 'danger' : 'success'
             } text-white`}
           >
+            {props.statement.category === '其他項目' ? (
+              <Row className="text-right my-2">
+                <Col xs="auto">上期餘額：</Col>
+                <Col>
+                  <b>{props.statement.balance - income + cost}</b>
+                </Col>
+              </Row>) : ""
+            }
             <Row className="text-right my-2">
               <Col xs="auto">本期淨{income - cost < 0 ? '損' : '利'}：</Col>
               <Col>
@@ -135,20 +143,12 @@ export const StatementTable = (props) => {
               </Col>
             </Row>
             {props.statement.category === '其他項目' ? (
-              <>
-                <Row className="text-right my-2">
-                  <Col xs="auto">上期餘額：</Col>
-                  <Col>
-                    <b>0</b>
-                  </Col>
-                </Row>
-                <Row className="text-right my-2">
-                  <Col xs="auto">本期餘額：</Col>
-                  <Col>
-                    <b>{props.statement.balance ?? 0}</b>
-                  </Col>
-                </Row>
-              </>
+              <Row className="text-right my-2">
+                <Col xs="auto">本期餘額：</Col>
+                <Col>
+                  <b>{props.statement.balance}</b>
+                </Col>
+              </Row>
             ) : (
               ''
             )}
