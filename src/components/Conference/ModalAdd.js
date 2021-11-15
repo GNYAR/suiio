@@ -93,9 +93,9 @@ export class ModalAdd extends Component {
                     required
                   >
                     <option value="0">例行會議</option>
-                    {this.state.categories.map((x) => (
+                    {this.state.categories?.length ? this.state.categories.map((x) => (
                       <option value={x.ID}>{x.name}</option>
-                    ))}
+                    )): null}
                   </Form.Control>
                 </Col>
               </Form.Group>
