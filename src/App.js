@@ -7,7 +7,7 @@ import { Organize } from './components/Organize'
 import { Conference } from './components/Conference'
 import { Finance } from './components/Finance'
 
-// import { Jumbotron } from './components/Jumbotron';
+require('dotenv').config()
 
 function App() {
   return (

@@ -30,7 +30,9 @@ export class StatementList extends Component {
   }
 
   update = () => {
-    fetch('http://suiio.nutc.edu.tw:2541/api/statement/fetch/all')
+    fetch(
+      `http://${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_PORT}/api/statement/fetch/all`
+    )
       .then((res) => res.json())
       .then((data) => {
         let cnt = 0
@@ -53,7 +55,9 @@ export class StatementList extends Component {
   }
 
   setStatement(id) {
-    fetch(`http://suiio.nutc.edu.tw:2541/api/statement/fetch/id/${id}`)
+    fetch(
+      `http://${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_PORT}/api/statement/fetch/id/${id}`
+    )
       .then((res) => res.json())
       .then((statement) => this.setState({ statement }))
   }

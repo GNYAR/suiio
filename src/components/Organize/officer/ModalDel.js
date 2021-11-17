@@ -4,13 +4,16 @@ import { Button, Form, Modal } from 'react-bootstrap'
 export class ModalDel extends Component {
   delete = (event) => {
     event.preventDefault()
-    fetch('http://suiio.nutc.edu.tw:2541/api/officers/delete', {
-      method: 'POST',
-      headers: new Headers({
-        'Content-Type': 'application/json',
-      }),
-      body: JSON.stringify(this.props.officer),
-    }).then((resp) => {
+    fetch(
+      `http://${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_PORT}/api/officers/delete`,
+      {
+        method: 'POST',
+        headers: new Headers({
+          'Content-Type': 'application/json',
+        }),
+        body: JSON.stringify(this.props.officer),
+      }
+    ).then((resp) => {
       if (parseInt(resp.status / 100) === '2')
         return alert(`${resp.status}　${resp.statusText}`)
       window.location.reload()

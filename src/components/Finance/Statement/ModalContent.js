@@ -4,14 +4,16 @@ import { StatementTable } from './StatementTable'
 
 export class ModalContent extends Component {
   updateStatus = (id, status) => {
-    console.log(JSON.stringify({ id, status }))
-    fetch('http://suiio.nutc.edu.tw:2541/api/statement/update/status', {
-      method: 'POST',
-      headers: new Headers({
-        'Content-Type': 'application/json',
-      }),
-      body: JSON.stringify({ ID: id, status }),
-    }).then((resp) => {
+    fetch(
+      `http://${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_PORT}/api/statement/update/status`,
+      {
+        method: 'POST',
+        headers: new Headers({
+          'Content-Type': 'application/json',
+        }),
+        body: JSON.stringify({ ID: id, status }),
+      }
+    ).then((resp) => {
       if (parseInt(resp.status / 100) === '2')
         return alert(`${resp.status}　${resp.statusText}`)
       // this.props.onHide()

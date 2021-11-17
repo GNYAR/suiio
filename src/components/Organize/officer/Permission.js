@@ -24,13 +24,16 @@ export class Permission extends Component {
       x[key] = Array.from(this.state[key])
       return x
     }, {})
-    fetch('http://suiio.nutc.edu.tw:2541/api/officers/update/permission', {
-      method: 'POST',
-      headers: new Headers({
-        'Content-Type': 'application/json',
-      }),
-      body: JSON.stringify(data),
-    }).then((resp) => {
+    fetch(
+      `http://${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_PORT}/api/officers/update/permission`,
+      {
+        method: 'POST',
+        headers: new Headers({
+          'Content-Type': 'application/json',
+        }),
+        body: JSON.stringify(data),
+      }
+    ).then((resp) => {
       if (parseInt(resp.status / 100) === '2')
         return alert(`${resp.status}　${resp.statusText}`)
       window.location.reload()

@@ -26,7 +26,9 @@ export class ModalAdd extends Component {
   }
 
   setOfficers = () => {
-    fetch('http://suiio.nutc.edu.tw:2541/api/officers/fetch/all')
+    fetch(
+      `http://${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_PORT}/api/officers/fetch/all`
+    )
       .then((res) => res.json())
       .then((data) => {
         this.setState({ officers: data })
@@ -35,20 +37,25 @@ export class ModalAdd extends Component {
   }
 
   setCategories = () => {
-    fetch('http://suiio.nutc.edu.tw:2541/api/category/fetch/status/1')
+    fetch(
+      `http://${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_PORT}/api/category/fetch/status/1`
+    )
       .then((res) => res.json())
       .then((data) => this.setState({ categories: data }))
   }
 
   add = (event) => {
     event.preventDefault()
-    fetch('http://suiio.nutc.edu.tw:2541/api/conference/add', {
-      method: 'POST',
-      headers: new Headers({
-        'Content-Type': 'application/json',
-      }),
-      body: JSON.stringify(this.state.form),
-    }).then((resp) => {
+    fetch(
+      `http://${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_PORT}/api/conference/add`,
+      {
+        method: 'POST',
+        headers: new Headers({
+          'Content-Type': 'application/json',
+        }),
+        body: JSON.stringify(this.state.form),
+      }
+    ).then((resp) => {
       if (parseInt(resp.status / 100) === '2')
         return alert(`${resp.status}　${resp.statusText}`)
       window.location.reload()
@@ -93,9 +100,11 @@ export class ModalAdd extends Component {
                     required
                   >
                     <option value="0">例行會議</option>
-                    {this.state.categories?.length ? this.state.categories.map((x) => (
-                      <option value={x.ID}>{x.name}</option>
-                    )): null}
+                    {this.state.categories?.length
+                      ? this.state.categories.map((x) => (
+                          <option value={x.ID}>{x.name}</option>
+                        ))
+                      : null}
                   </Form.Control>
                 </Col>
               </Form.Group>

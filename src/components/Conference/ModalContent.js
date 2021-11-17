@@ -3,13 +3,16 @@ import { Row, Col, Modal, Form, Button } from 'react-bootstrap'
 
 export class ModalContent extends Component {
   updateStatus = (id, status) => {
-    fetch('http://suiio.nutc.edu.tw:2541/api/conference/update/status', {
-      method: 'POST',
-      headers: new Headers({
-        'Content-Type': 'application/json',
-      }),
-      body: JSON.stringify({ id, status }),
-    }).then((resp) => {
+    fetch(
+      `http://${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_PORT}/api/conference/update/status`,
+      {
+        method: 'POST',
+        headers: new Headers({
+          'Content-Type': 'application/json',
+        }),
+        body: JSON.stringify({ id, status }),
+      }
+    ).then((resp) => {
       if (parseInt(resp.status / 100) === '2')
         return alert(`${resp.status}　${resp.statusText}`)
       window.location.reload()

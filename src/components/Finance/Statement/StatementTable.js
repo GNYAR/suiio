@@ -134,8 +134,10 @@ export const StatementTable = (props) => {
                 <Col>
                   <b>{props.statement.balance - income + cost}</b>
                 </Col>
-              </Row>) : ""
-            }
+              </Row>
+            ) : (
+              ''
+            )}
             <Row className="text-right my-2">
               <Col xs="auto">本期淨{income - cost < 0 ? '損' : '利'}：</Col>
               <Col>

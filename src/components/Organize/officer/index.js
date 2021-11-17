@@ -8,7 +8,9 @@ export class Officer extends Component {
     this.state = {
       officers: [],
     }
-    fetch('http://suiio.nutc.edu.tw:2541/api/officers/fetch/all')
+    fetch(
+      `http://${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_PORT}/api/officers/fetch/all`
+    )
       .then((res) => res.json())
       .then((data) => this.setState({ officers: data }))
   }

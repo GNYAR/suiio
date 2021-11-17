@@ -14,13 +14,17 @@ export class ModalAdd extends Component {
   }
 
   getCategories = () => {
-    fetch('http://suiio.nutc.edu.tw:2541/api/category/fetch/all')
+    fetch(
+      `http://${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_PORT}/api/category/fetch/all`
+    )
       .then((res) => res.json())
       .then((data) => this.setState({ categories: data }))
   }
 
   setAccounts = (month) => {
-    fetch(`http://suiio.nutc.edu.tw:2541/api/account/fetch/date/${month}`)
+    fetch(
+      `http://${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_PORT}/api/account/fetch/date/${month}`
+    )
       .then((res) => res.json())
       .then((data) => this.setState({ accounts: data?.length ? data : [] }))
   }
@@ -32,18 +36,21 @@ export class ModalAdd extends Component {
 
   add = (event) => {
     event.preventDefault()
-    fetch('http://suiio.nutc.edu.tw:2541/api/statement/add/', {
-      method: 'POST',
-      headers: new Headers({
-        'Content-Type': 'application/json',
-      }),
-      body: JSON.stringify({
-        name: this.state.name,
-        category: 0,
-        uploadBy: '財務長',
-        content: this.state.accounts.reduce((arr, x) => [...arr, x.ID], []),
-      }),
-    }).then((resp) => {
+    fetch(
+      `http://${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_PORT}/api/statement/add/`,
+      {
+        method: 'POST',
+        headers: new Headers({
+          'Content-Type': 'application/json',
+        }),
+        body: JSON.stringify({
+          name: this.state.name,
+          category: 0,
+          uploadBy: '財務長',
+          content: this.state.accounts.reduce((arr, x) => [...arr, x.ID], []),
+        }),
+      }
+    ).then((resp) => {
       if (parseInt(resp.status / 100) === '2')
         return alert(`${resp.status}　${resp.statusText}`)
       this.props.onHide()

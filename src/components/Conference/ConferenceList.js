@@ -20,14 +20,16 @@ export class ConferenceList extends Component {
   }
 
   update = () => {
-    fetch('http://suiio.nutc.edu.tw:2541/api/conference/fetch/all')
+    fetch(
+      `http://${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_PORT}/api/conference/fetch/all`
+    )
       .then((res) => res.json())
       .then((data) => this.setState({ conferences: data }))
   }
 
   fetchContent = async (id) => {
     await fetch(
-      `http://suiio.nutc.edu.tw:2541/api/conference/fetch/content/${id}`
+      `http://${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_PORT}/api/conference/fetch/content/${id}`
     )
       .then((res) => res.json())
       .then((data) => this.setState({ content: data[0] }))

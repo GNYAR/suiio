@@ -24,7 +24,9 @@ export class ModalAdd extends Component {
   }
 
   setCategories = () => {
-    fetch('http://suiio.nutc.edu.tw:2541/api/category/fetch/status/1')
+    fetch(
+      `http://${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_PORT}/api/category/fetch/status/1`
+    )
       .then((res) => res.json())
       .then((data) => this.setState({ categories: data }))
   }
@@ -32,13 +34,16 @@ export class ModalAdd extends Component {
   add = (event) => {
     event.preventDefault()
     this.state.form.amount *= this.state.type
-    fetch('http://suiio.nutc.edu.tw:2541/api/account/add', {
-      method: 'POST',
-      headers: new Headers({
-        'Content-Type': 'application/json',
-      }),
-      body: JSON.stringify(this.state.form),
-    }).then((resp) => {
+    fetch(
+      `http://${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_PORT}/api/account/add`,
+      {
+        method: 'POST',
+        headers: new Headers({
+          'Content-Type': 'application/json',
+        }),
+        body: JSON.stringify(this.state.form),
+      }
+    ).then((resp) => {
       if (parseInt(resp.status / 100) === '2')
         return alert(`${resp.status}　${resp.statusText}`)
       this.props.onHide()
@@ -83,9 +88,11 @@ export class ModalAdd extends Component {
                     required
                   >
                     <option value="1">一般開銷</option>
-                    {this.state.categories?.length ? this.state.categories.map((x) => (
-                      <option value={x.ID}>{x.name}</option>
-                    )): null}
+                    {this.state.categories?.length
+                      ? this.state.categories.map((x) => (
+                          <option value={x.ID}>{x.name}</option>
+                        ))
+                      : null}
                   </Form.Control>
                 </Col>
               </Form.Group>

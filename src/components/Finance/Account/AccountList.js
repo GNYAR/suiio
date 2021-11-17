@@ -29,7 +29,9 @@ export class AccountList extends Component {
   }
 
   update = () => {
-    fetch('http://suiio.nutc.edu.tw:2541/api/account/fetch/all')
+    fetch(
+      `http://${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_PORT}/api/account/fetch/all`
+    )
       .then((res) => res.json())
       .then((data) => {
         let cnt = 0
@@ -57,7 +59,9 @@ export class AccountList extends Component {
   }
 
   fetchContent = async (id) => {
-    await fetch(`http://suiio.nutc.edu.tw:2541/api/account/fetch/id/${id}`)
+    await fetch(
+      `http://${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_PORT}/api/account/fetch/id/${id}`
+    )
       .then((res) => res.json())
       .then((data) => this.setState({ selected: data[0] }))
   }
